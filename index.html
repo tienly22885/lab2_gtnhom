@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Giới thiệu nhóm & Cloud Computing</title>
+
+  <style>
+  :root{
+    --bg:#f4f7fb;
+    --card:#ffffff;
+    --card2:#f9fbff;
+    --text:#1f2937;
+    --muted:#4b5563;
+    --line:#e5e7eb;
+    --primary:#2563eb;
+    --primary2:#60a5fa;
+    --shadow: 0 8px 20px rgba(0,0,0,.08);
+    --radius:14px;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+
+  body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+      radial-gradient(900px 500px at 10% 0%, rgba(255,0,0,.08), transparent 55%),
+      radial-gradient(900px 500px at 90% 0%, rgba(0,160,90,.10), transparent 55%),
+      linear-gradient(180deg, #eef4ff, #f8fafc 40%, #f4f7fb);
+    color:var(--text);
+    line-height:1.75;
+  }
+
+  .wrap{
+    max-width:1100px;
+    margin:0 auto;
+    padding:28px 16px 60px;
+  }
+
+  header.hero{
+    background: linear-gradient(135deg, #3b82f6, #60a5fa);
+    color:#fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding:26px;
+    margin-bottom:20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header.hero h1{
+    margin:0 0 6px;
+    font-size:32px;
+    letter-spacing:.5px;
+  }
+
+  header.hero p{
+    margin:0;
+    opacity:.95;
+  }
+
+  .badge{
+    margin-top:12px;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:6px 12px;
+    border-radius:999px;
+    background: rgba(255,255,255,.2);
+    font-size:14px;
+  }
+
+  .dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#22c55e;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns: 320px 1fr;
+    gap:18px;
+  }
+  @media (max-width: 980px){
+    .grid{grid-template-columns:1fr}
+  }
+
+  .card{
+    background:var(--card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding:20px;
+    border:1px solid var(--line);
+  }
+
+  .card h2{
+    margin-top:0;
+    color:var(--primary);
+    border-bottom:2px solid var(--primary2);
+    padding-bottom:6px;
+  }
+
+  .muted{color:var(--muted)}
+
+  .divider{
+    height:1px;
+    background:var(--line);
+    margin:14px 0;
+  }
+
+  .toc{
+    position: sticky;
+    top: 16px;
+    max-height: calc(100vh - 32px);
+    overflow: auto;
+  }
+
+  .toc a{
+    display:block;
+    padding:10px 12px;
+    margin:6px 0;
+    border-radius:10px;
+    text-decoration:none;
+    color:var(--text);
+    background:#f1f5ff;
+    border:1px solid var(--line);
+    font-size:14px;
+  }
+
+  .toc a:hover{
+    background:#e0ebff;
+    color:var(--primary);
+  }
+
+  .members{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:12px;
+  }
+  @media (max-width: 980px){
+    .members{grid-template-columns:1fr}
+  }
+
+  .member{
+    background:var(--card2);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:14px;
+  }
+
+  .member h3{
+    margin:0 0 6px;
+    color:var(--primary);
+  }
+
+  .member p{
+    margin:4px 0;
+    font-size:14px;
+  }
+
+  .img{
+    width:100%;
+    border-radius:12px;
+    border:1px solid var(--line);
+    overflow:hidden;
+    margin:14px 0;
+    background:#fff;
+  }
+
+  .img img{
+    width:100%;
+    display:block;
+  }
+
+  .img figcaption{
+    padding:8px 10px;
+    font-size:13px;
+    background:#f3f6ff;
+    color:var(--muted);
+  }
+
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:14px;
+  }
+
+  th, td{
+    border:1px solid var(--line);
+    padding:10px;
+    text-align:left;
+    vertical-align: top;
+  }
+
+  th{
+    background:#e0ebff;
+    color:#1e3a8a;
+  }
+
+  td{ background:#fff; }
+
+  .tag{
+    display:inline-block;
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:12px;
+    background:#e0ebff;
+    color:#1e40af;
+    border:1px solid #c7d2fe;
+    white-space: nowrap;
+  }
+
+  .gallery{
+    display:grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap:14px;
+  }
+  @media (max-width: 980px){
+    .gallery{ grid-template-columns: 1fr; }
+  }
+
+  .gallery .img{
+    margin:0;
+    height: 260px;
+    display:flex;
+    flex-direction: column;
+  }
+
+  .gallery .img img{
+    width:100%;
+    height: 200px;
+    object-fit: cover;
+    display:block;
+  }
+
+  .gallery .img figcaption{
+    margin-top:auto;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:14px;
+    padding-top:20px;
+  }
+
+  /* ====== CHRISTMAS THEME: snow + santa + tree + lights ====== */
+  #snow{
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .christmas-tree{
+    position: fixed;
+    left: 14px;
+    bottom: 12px;
+    z-index: 20;
+    font-size: 46px;
+    filter: drop-shadow(0 8px 18px rgba(0,0,0,.18));
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .santa{
+    position: fixed;
+    top: 84px;
+    left: -140px;
+    z-index: 25;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+    cursor: pointer;          /* click được */
+    pointer-events: auto;     /* click được */
+    animation: santaFly 14s linear infinite;
+    filter: drop-shadow(0 10px 16px rgba(0,0,0,.18));
+  }
+  .santa .emoji{ font-size: 44px; }
+  .santa .trail{
+    width: 130px;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(59,130,246,.0), rgba(59,130,246,.20), rgba(96,165,250,.0));
+  }
+  @keyframes santaFly{
+    0%   { transform: translateX(0) translateY(0) scale(1); opacity: 1; }
+    35%  { transform: translateX(calc(100vw + 260px)) translateY(10px) scale(1.02); }
+    36%  { opacity: 0; }
+    37%  { transform: translateX(-160px) translateY(-10px) scale(0.98); opacity: 0; }
+    40%  { opacity: 1; }
+    100% { transform: translateX(calc(100vw + 260px)) translateY(6px) scale(1.01); }
+  }
+
+  .header-lights{
+    position:absolute;
+    left:0; right:0; top:0;
+    height: 34px;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    gap: 10px;
+    opacity: .95;
+    pointer-events:none;
+  }
+
+  .bulb{
+    width: 10px;
+    height: 14px;
+    border-radius: 8px 8px 12px 12px;
+    background: currentColor;
+    box-shadow: 0 0 14px currentColor;
+    transform: translateY(6px);
+    animation: twinkle 1.4s ease-in-out infinite;
+  }
+  .bulb:nth-child(2n){ animation-delay: .2s; }
+  .bulb:nth-child(3n){ animation-delay: .4s; }
+  .bulb:nth-child(4n){ animation-delay: .6s; }
+
+  @keyframes twinkle{
+    0%,100%{ opacity:.35; filter:saturate(1); }
+    50%{ opacity:1; filter:saturate(1.3); }
+  }
+
+  /* 🎁 Hộp quà xuất hiện khi click Santa */
+  .gift{
+    position: fixed;
+    z-index: 30;
+    font-size: 48px;
+    animation: giftPop 1.2s ease-out forwards;
+    pointer-events: none;
+    filter: drop-shadow(0 10px 16px rgba(0,0,0,.25));
+  }
+
+  @keyframes giftPop{
+    0%{ transform: scale(0) rotate(0deg); opacity: 0; }
+    50%{ transform: scale(1.3) rotate(10deg); opacity: 1; }
+    100%{ transform: scale(1) rotate(0deg); opacity: 0; }
+  }
+
+
+  
+
+  
+  </style>
+</head>
+
+<body>
+  <!-- CHRISTMAS LAYERS -->
+  <canvas id="snow"></canvas>
+
+  <div class="santa" id="santa" title="Click trúng Noel để nhận quà 🎁">
+    <span class="emoji">🎅🛷</span>
+    <span class="trail"></span>
+  </div>
+
+  <div class="christmas-tree" aria-hidden="true">🎄</div>
+
+  <div class="wrap">
+    <header class="hero">
+      <!-- DÂY ĐÈN NOEL -->
+      <div class="header-lights" aria-hidden="true">
+        <span class="bulb" style="color:#ef4444"></span>
+        <span class="bulb" style="color:#f59e0b"></span>
+        <span class="bulb" style="color:#22c55e"></span>
+        <span class="bulb" style="color:#3b82f6"></span>
+        <span class="bulb" style="color:#a855f7"></span>
+        <span class="bulb" style="color:#ef4444"></span>
+        <span class="bulb" style="color:#f59e0b"></span>
+        <span class="bulb" style="color:#22c55e"></span>
+        <span class="bulb" style="color:#3b82f6"></span>
+      </div>
+
+      <h1>GIỚI THIỆU NHÓM & CLOUD COMPUTING</h1>
+      <p>
+        Website tĩnh (HTML/CSS) giới thiệu nhóm và tổng hợp kiến thức: Cloud Computing, IaaS/PaaS/SaaS/FaaS,
+        CDN và Cloudflare Pages.
+      </p>
+      <div class="badge"><span class="dot"></span> Deploy: GitHub → Cloudflare Pages</div>
+    </header>
+
+    <div class="grid">
+      <!-- Sidebar / Mục lục -->
+      <aside class="card toc">
+        <h2>Mục lục</h2>
+        <a href="#nhom">1. Thành viên nhóm</a>
+        <a href="#cloud">2. Cloud Computing</a>
+        <a href="#models">3. IaaS – PaaS – SaaS – FaaS</a>
+        <a href="#static">4. Website tĩnh</a>
+        <a href="#pages">5. Cloudflare Pages</a>
+        <a href="#cdn">6. CDN phân phối nội dung</a>
+        <a href="#cdn-role">7. Vai trò CDN (hiệu năng & an toàn)</a>
+        <a href="#security">8. Rủi ro & giải pháp</a>
+        <a href="#gallery">9. Hình minh họa</a>
+      </aside>
+
+      <!-- Main content -->
+      <main>
+        <!-- 1 -->
+        <section id="nhom" class="card">
+          <h2>1. Thông tin thành viên nhóm</h2>
+          <p class="muted">Danh sách thành viên và thông tin liên hệ.</p>
+
+          <div class="members">
+            <div class="member">
+              <h3>Hồ Gia Huy</h3>
+              <p><strong>MSSV:</strong> 22004027</p>
+              <p><strong>Email:</strong> 22004027@st.vlute.edu.vn</p>
+            </div>
+            <div class="member">
+              <h3>Dương Anh Văn</h3>
+              <p><strong>MSSV:</strong> 22004046</p>
+              <p><strong>Email:</strong> 22004046@st.vlute.edu.vn</p>
+            </div>
+            <div class="member">
+              <h3>Lý Minh Tiến</h3>
+              <p><strong>MSSV:</strong> 22004040</p>
+              <p><strong>Email:</strong> 22004040@st.vlute.edu.vn</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2 -->
+        <section id="cloud" class="card" style="margin-top:18px;">
+          <h2>2. Cloud Computing là gì?</h2>
+          <p class="muted">
+            Cloud computing (điện toán đám mây) là mô hình cung cấp tài nguyên CNTT như máy chủ, lưu trữ,
+            mạng, ứng dụng… thông qua Internet. Người dùng không cần tự xây dựng hạ tầng vật lý, mà sử dụng
+            tài nguyên theo nhu cầu và trả phí theo mức sử dụng.
+          </p>
+
+          <figure class="img">
+            <img src="https://cf-assets.www.cloudflare.com/slt3lc6tev37/3YT0gya2bkUeuMrnGxhjAZ/4146c20c214cf001c74c0868ddfb9503/what-is-the-cloud.png" alt="Minh họa Cloud Computing">
+            <figcaption>Hình: Minh họa Cloud Computing</figcaption>
+          </figure>
+
+          <div class="divider"></div>
+          <h3>Lợi ích chính</h3>
+          <ul>
+            <li>Tiết kiệm chi phí</li>
+            <li>Dễ mở rộng</li>
+            <li>Truy cập mọi lúc, mọi nơi</li>
+            <li>Nhà cung cấp chịu trách nhiệm vận hành hạ tầng</li>
+          </ul>
+        </section>
+
+        <!-- 3 -->
+        <section id="models" class="card" style="margin-top:18px;">
+          <h2>3. IaaS – PaaS – SaaS – FaaS khác nhau như thế nào?</h2>
+
+          <figure class="img">
+            <img src="https://www.cloudflare.com/img/learning/serverless/glossary/platform-as-a-service-paas/saas-paas-iaas-diagram.svg" alt="Sơ đồ IaaS PaaS SaaS">
+            <figcaption>Hình: Sơ đồ so sánh IaaS – PaaS – SaaS</figcaption>
+          </figure>
+
+          <h3>3.1 SaaS (Software as a Service)</h3>
+          <p class="muted">
+            Thay vì người dùng cài đặt ứng dụng trên thiết bị của mình, các ứng dụng SaaS được lưu trữ trên
+            máy chủ đám mây và người dùng truy cập qua Internet. SaaS giống như việc thuê nhà: chủ nhà bảo trì,
+            người thuê sử dụng gần như “nhà của mình”. Ví dụ: Salesforce, MailChimp, Slack.
+          </p>
+
+          <h3>3.2 PaaS (Platform as a Service)</h3>
+          <p class="muted">
+            Doanh nghiệp không trả tiền cho ứng dụng hoàn chỉnh mà trả tiền cho những thứ cần để xây dựng ứng dụng.
+            Nhà cung cấp PaaS cung cấp mọi thứ cần thiết như công cụ phát triển, hạ tầng, hệ điều hành qua Internet.
+            PaaS giống như thuê công cụ/thiết bị để xây nhà. Ví dụ: Heroku, Microsoft Azure.
+          </p>
+
+          <h3>3.3 IaaS (Infrastructure as a Service)</h3>
+          <p class="muted">
+            Doanh nghiệp thuê máy chủ và dung lượng lưu trữ từ nhà cung cấp cloud để tự xây dựng ứng dụng của mình.
+            IaaS giống như thuê một mảnh đất để xây bất cứ thứ gì, nhưng tự chuẩn bị vật liệu/thiết bị. Ví dụ:
+            DigitalOcean, Google Compute Engine, OpenStack.
+          </p>
+
+          <h3>3.4 FaaS (Function as a Service) / Serverless</h3>
+          <p class="muted">
+            FaaS (điện toán phi máy chủ) chia nhỏ ứng dụng thành các thành phần (hàm) nhỏ hơn, chỉ chạy khi cần.
+            Có thể hình dung như “thuê nhà theo từng phòng theo thời điểm sử dụng”: dùng phòng nào thì trả phí phòng đó,
+            không dùng thì không trả.
+          </p>
+
+          <div class="divider"></div>
+          <table>
+            <thead>
+              <tr>
+                <th>Mô hình</th>
+                <th>Cung cấp</th>
+                <th>Người dùng làm gì</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="tag">IaaS</span></td>
+                <td>Máy chủ ảo, mạng, lưu trữ</td>
+                <td>Cài hệ điều hành, ứng dụng</td>
+              </tr>
+              <tr>
+                <td><span class="tag">PaaS</span></td>
+                <td>Nền tảng chạy ứng dụng</td>
+                <td>Viết và triển khai code</td>
+              </tr>
+              <tr>
+                <td><span class="tag">SaaS</span></td>
+                <td>Phần mềm hoàn chỉnh</td>
+                <td>Chỉ sử dụng</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 4 -->
+        <section id="static" class="card" style="margin-top:18px;">
+          <h2>4. Website tĩnh thuộc mô hình nào trong cloud?</h2>
+          <figure class="img">
+            <img src="https://cf-assets.www.cloudflare.com/slt3lc6tev37/7Dy6rquZDDKSJoeS27Y6xc/4a671b7cc7894a475a94f0140981f5d9/what_is_a_cdn_distributed_server_map.png" alt="Bản đồ phân phối CDN">
+            <figcaption>Hình: CDN phân phối nội dung qua máy chủ biên toàn cầu</figcaption>
+          </figure>
+
+          <p class="muted">
+            Website tĩnh (HTML, CSS, JavaScript) thường thuộc mô hình:
+          </p>
+          <ul>
+            <li>Hosting tĩnh trên cloud</li>
+            <li>Kết hợp CDN</li>
+            <li>Không cần backend server → không phải PaaS hay SaaS, mà là dịch vụ lưu trữ + phân phối nội dung trong cloud.</li>
+          </ul>
+        </section>
+
+        <!-- 5 -->
+        <section id="pages" class="card" style="margin-top:18px;">
+          <h2>5. Cloudflare Pages hoạt động theo cơ chế gì?</h2>
+          <ul>
+            <li>Kết nối với Git (GitHub/GitLab)</li>
+            <li>Khi push code → hệ thống tự động build</li>
+            <li>Website được deploy lên hạ tầng cloud</li>
+            <li>Nội dung được phân phối qua CDN toàn cầu của Cloudflare</li>
+            <li>Mô hình CI/CD + CDN + Cloud, rất phù hợp cho website tĩnh</li>
+          </ul>
+        </section>
+
+        <!-- 6 -->
+        <section id="cdn" class="card" style="margin-top:18px;">
+          <h2>6. CDN phân phối nội dung ra sao?</h2>
+          <p class="muted">
+            CDN (Content Delivery Network) phân phối nội dung bằng cách lưu bản sao (cache) nội dung website tại nhiều
+            máy chủ biên (edge servers) trên toàn thế giới. Khi người dùng truy cập, CDN sẽ chọn máy chủ gần người dùng nhất
+            để trả nội dung nhanh hơn so với server gốc.
+          </p>
+
+          <h3>Nội dung được phân phối</h3>
+          <ul>
+            <li>HTML, CSS, JavaScript</li>
+            <li>Hình ảnh, video</li>
+            <li>File tĩnh khác</li>
+          </ul>
+        </section>
+
+        <!-- 7 -->
+        <section id="cdn-role" class="card" style="margin-top:18px;">
+          <h2>7. CDN có vai trò gì đối với hiệu năng và an toàn?</h2>
+
+          <h3>7.1 Hiệu năng</h3>
+          <ul>
+            <li>CDN cải thiện tốc độ tải trang web.</li>
+            <li>Giảm khoảng cách địa lý giữa người dùng và tài nguyên (phục vụ từ trung tâm dữ liệu gần hơn).</li>
+            <li>Tối ưu phần cứng/phần mềm (cân bằng tải, ổ SSD...) giúp dữ liệu đến tay người dùng nhanh hơn.</li>
+            <li>Giảm lượng dữ liệu truyền tải bằng thu nhỏ và nén tệp → tải nhanh hơn.</li>
+          </ul>
+
+          <h3>7.2 An toàn</h3>
+          <ul>
+            <li>Tăng tốc và tối ưu các trang dùng TLS/SSL (tối ưu tái sử dụng kết nối).</li>
+            <li>CDN hỗ trợ bảo mật bằng chứng chỉ TLS/SSL mới nhất, đảm bảo xác thực, mã hóa và tính toàn vẹn dữ liệu.</li>
+          </ul>
+        </section>
+
+        <!-- 8 -->
+        <section id="security" class="card" style="margin-top:18px;">
+          <h2>8. Những rủi ro bảo mật còn tồn tại? & Giải pháp</h2>
+
+          <h3>8.1 Rủi ro</h3>
+          <ul>
+            <li>Cấu hình sai → lộ dữ liệu</li>
+            <li>DDoS tinh vi ở tầng ứng dụng (Layer 7)</li>
+            <li>Lộ API key / token</li>
+            <li>Cache nhầm nội dung nhạy cảm</li>
+            <li>Lỗi trong serverless functions</li>
+          </ul>
+
+          <div class="divider"></div>
+
+          <h3>8.2 Giải pháp</h3>
+          <ul>
+            <li>Sử dụng HTTPS</li>
+            <li>Cấu hình WAF (Web Application Firewall)</li>
+            <li>Giới hạn tốc độ truy cập (Rate limiting)</li>
+            <li>Quản lý quyền truy cập chặt chẽ</li>
+            <li>Không cache dữ liệu nhạy cảm</li>
+            <li>Giám sát log và traffic thường xuyên</li>
+          </ul>
+        </section>
+
+        <!-- 9 -->
+        <section id="gallery" class="card" style="margin-top:18px;">
+          <h2>9. Ví dụ hình ảnh minh họa</h2>
+          <p class="muted">Một số hình minh họa kiến trúc Cloud, cơ chế CDN và workflow GitHub → Cloudflare Pages.</p>
+
+          <div class="gallery">
+            <figure class="img" style="margin:0;">
+              <img src="https://techstack-blog.s3.eu-central-1.amazonaws.com/2024/11/Cloud_Computing_Architecture_2-1.png" alt="Kiến trúc Cloud">
+              <figcaption>Kiến trúc Cloud Computing</figcaption>
+            </figure>
+
+            <figure class="img" style="margin:0;">
+              <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240312094353/How-does-CDN-work.webp" alt="Cơ chế CDN">
+              <figcaption>Cơ chế hoạt động của CDN</figcaption>
+            </figure>
+
+            <figure class="img" style="margin:0;">
+              <img src="https://www.petanikode.com/img/hugo-cloudflare-pages/workflow-github-cloudflare-pages.png" alt="Workflow GitHub Cloudflare Pages">
+              <figcaption>Workflow GitHub → Cloudflare Pages</figcaption>
+            </figure>
+          </div>
+        </section>
+
+        
+
+        <footer>
+          © 2025 — Website tĩnh báo cáo Cloud Computing • Nhóm thực hiện
+        </footer>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Snowfall on canvas
+    const canvas = document.getElementById("snow");
+    const ctx = canvas.getContext("2d");
+
+    let w, h, flakes;
+
+    function resize(){
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+      const count = Math.min(220, Math.floor(w / 6));
+      flakes = Array.from({length: count}, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: 0.8 + Math.random() * 2.2,
+        vy: 0.6 + Math.random() * 1.8,
+        vx: -0.4 + Math.random() * 0.8,
+        a: 0.35 + Math.random() * 0.65
+      }));
+    }
+
+    function tick(){
+      ctx.clearRect(0,0,w,h);
+      const wind = Math.sin(Date.now()/2600) * 0.25;
+
+      for(const f of flakes){
+        ctx.globalAlpha = f.a;
+        ctx.beginPath();
+        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff";
+        ctx.fill();
+
+        f.x += (f.vx + wind);
+        f.y += f.vy;
+
+        if (f.y > h + 10) { f.y = -10; f.x = Math.random() * w; }
+        if (f.x < -10) f.x = w + 10;
+        if (f.x > w + 10) f.x = -10;
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+    tick();
+  </script>
+
+  <script>
+    // 🎅 Click Santa → hiện quà 🎁
+    const santa = document.getElementById("santa");
+    santa.addEventListener("click", (e) => {
+      const gift = document.createElement("div");
+      gift.className = "gift";
+      gift.textContent = "🎁";
+      gift.style.left = (e.clientX - 20) + "px";
+      gift.style.top = (e.clientY - 20) + "px";
+      document.body.appendChild(gift);
+      setTimeout(() => gift.remove(), 1200);
+    });
+  </script>
+</body>
+</html>

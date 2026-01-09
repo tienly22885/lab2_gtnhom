@@ -3,705 +3,1490 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Giới thiệu nhóm & Cloud Computing</title>
-          <a href="/cdn-cgi/access/logout">
-  <button>Đăng xuất</button>
-</a>
+  <title>An toàn điện toán đám mây</title>
 
   <style>
-  :root{
-    --bg:#f4f7fb;
-    --card:#ffffff;
-    --card2:#f9fbff;
-    --text:#1f2937;
-    --muted:#4b5563;
-    --line:#e5e7eb;
-    --primary:#2563eb;
-    --primary2:#60a5fa;
-    --shadow: 0 8px 20px rgba(0,0,0,.08);
-    --radius:14px;
-  }
+    :root{
+      --bg: #f6f8fc;
+      --card: rgba(255,255,255,.82);
+      --cardSolid:#ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --line: rgba(15,23,42,.10);
+      --shadow: 0 12px 30px rgba(2, 6, 23, .12);
+      --radius: 18px;
+      --sidebar: 300px;
 
-  *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
+      /* Tết palette */
+      --tet-red:#c1121f;
+      --tet-red2:#e11d48;
+      --tet-gold:#f59e0b;
+      --tet-green:#16a34a;
+    }
 
-  body{
-    margin:0;
-    font-family: Arial, Helvetica, sans-serif;
-    background:
-      radial-gradient(900px 500px at 10% 0%, rgba(255,0,0,.08), transparent 55%),
-      radial-gradient(900px 500px at 90% 0%, rgba(0,160,90,.10), transparent 55%),
-      linear-gradient(180deg, #eef4ff, #f8fafc 40%, #f4f7fb);
-    color:var(--text);
-    line-height:1.75;
-  }
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--text);
+      overflow-x:hidden;
 
-  .wrap{
-    max-width:1100px;
-    margin:0 auto;
-    padding:28px 16px 60px;
-  }
+      background:
+        radial-gradient(900px 520px at 12% 0%, rgba(193,18,31,.18), transparent 60%),
+        radial-gradient(900px 520px at 88% 0%, rgba(245,158,11,.20), transparent 60%),
+        radial-gradient(900px 520px at 50% 110%, rgba(22,163,74,.10), transparent 60%),
+        linear-gradient(180deg, #fff7ed, #fff1f2 55%, #ffffff 120%);
+    }
 
-  header.hero{
-    background: linear-gradient(135deg, #3b82f6, #60a5fa);
-    color:#fff;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding:26px;
-    margin-bottom:20px;
-    position: relative;
-    overflow: hidden;
-  }
+    /* Background pattern (hoa mai/đào) */
+    .tet-bg{
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: .55;
+      background:
+        radial-gradient(circle at 12% 18%, rgba(245,158,11,.28) 0 2px, transparent 3px),
+        radial-gradient(circle at 14% 22%, rgba(225,29,72,.18) 0 2px, transparent 3px),
+        radial-gradient(circle at 22% 12%, rgba(245,158,11,.22) 0 2px, transparent 3px),
+        radial-gradient(circle at 35% 28%, rgba(225,29,72,.16) 0 2px, transparent 3px),
+        radial-gradient(circle at 48% 14%, rgba(245,158,11,.20) 0 2px, transparent 3px),
+        radial-gradient(circle at 62% 22%, rgba(225,29,72,.14) 0 2px, transparent 3px),
+        radial-gradient(circle at 74% 14%, rgba(245,158,11,.18) 0 2px, transparent 3px),
+        radial-gradient(circle at 86% 26%, rgba(225,29,72,.12) 0 2px, transparent 3px),
+        radial-gradient(circle at 92% 16%, rgba(245,158,11,.16) 0 2px, transparent 3px);
+      background-size: 240px 240px;
+      filter: blur(.25px);
+    }
 
-  header.hero h1{
-    margin:0 0 6px;
-    font-size:32px;
-    letter-spacing:.5px;
-  }
+    /* FX canvas */
+    #fx{
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events:none;
+    }
 
-  header.hero p{
-    margin:0;
-    opacity:.95;
-  }
+    /* Lanterns */
+    .lanterns{
+      position: fixed;
+      top: 10px;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      pointer-events:none;
+      display:flex;
+      justify-content: space-between;
+      padding: 0 18px;
+      opacity: .95;
+    }
+    .lantern{
+      width: 56px;
+      height: 76px;
+      border-radius: 18px 18px 22px 22px;
+      background: linear-gradient(180deg, rgba(193,18,31,.98), rgba(225,29,72,.92));
+      box-shadow: 0 18px 30px rgba(193,18,31,.22);
+      border: 1px solid rgba(255,255,255,.22);
+      position: relative;
+      transform-origin: top center;
+      animation: sway 3.6s ease-in-out infinite;
+    }
+    .lantern::before{
+      content:"";
+      position:absolute;
+      top:-10px; left: 50%;
+      transform: translateX(-50%);
+      width: 16px; height: 10px;
+      border-radius: 8px;
+      background: rgba(245,158,11,.95);
+      box-shadow: 0 6px 14px rgba(245,158,11,.25);
+    }
+    .lantern::after{
+      content:"";
+      position:absolute;
+      bottom:-26px; left: 50%;
+      transform: translateX(-50%);
+      width: 10px; height: 26px;
+      border-radius: 10px;
+      background: linear-gradient(180deg, rgba(245,158,11,.95), rgba(245,158,11,.20));
+    }
+    .lantern:nth-child(2){ animation-delay: .6s; transform: scale(.92); }
+    .lantern:nth-child(3){ animation-delay: 1.2s; transform: scale(.88); }
+    .lantern:nth-child(4){ animation-delay: .3s; transform: scale(.94); }
 
-  .badge{
-    margin-top:12px;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:6px 12px;
-    border-radius:999px;
-    background: rgba(255,255,255,.2);
-    font-size:14px;
-  }
+    @keyframes sway{
+      0%,100%{ transform: rotate(-2deg); }
+      50%{ transform: rotate(2deg); }
+    }
 
-  .dot{
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:#22c55e;
-  }
+    /* Lì xì pop */
+    .lixi{
+      position: fixed;
+      z-index: 3;
+      font-size: 44px;
+      pointer-events:none;
+      filter: drop-shadow(0 12px 18px rgba(2,6,23,.22));
+      animation: pop 1.2s ease-out forwards;
+    }
+    @keyframes pop{
+      0%{ transform: scale(.2) rotate(-8deg); opacity: 0; }
+      45%{ transform: scale(1.15) rotate(8deg); opacity: 1; }
+      100%{ transform: scale(1) rotate(0deg); opacity: 0; }
+    }
 
-  .grid{
-    display:grid;
-    grid-template-columns: 320px 1fr;
-    gap:18px;
-  }
-  @media (max-width: 980px){
-    .grid{grid-template-columns:1fr}
-  }
+    /* Content layer */
+    .page{ position: relative; z-index: 5; }
 
-  .card{
-    background:var(--card);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding:20px;
-    border:1px solid var(--line);
-  }
+    /* Topbar */
+    .topbar{
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,.68);
+      border-bottom: 1px solid var(--line);
+    }
+    .topbar-inner{
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 14px 18px;
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      justify-content: space-between;
+    }
+    .brand{ display:flex; align-items:center; gap: 10px; min-width: 240px; }
+    .logo{
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--tet-red), var(--tet-gold));
+      box-shadow: 0 10px 20px rgba(193,18,31,.18);
+    }
+    .brand h1{
+      margin:0;
+      font-size: 14px;
+      letter-spacing: .35px;
+      line-height: 1.2;
+      font-weight: 900;
+    }
+    .brand p{
+      margin:0;
+      font-size: 12px;
+      color: var(--muted);
+    }
 
-  .card h2{
-    margin-top:0;
-    color:var(--primary);
-    border-bottom:2px solid var(--primary2);
-    padding-bottom:6px;
-  }
+    .top-actions{ display:flex; align-items:center; gap: 10px; }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.78);
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .dot{
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--tet-green);
+      box-shadow: 0 0 0 4px rgba(22,163,74,.14);
+    }
+    .btn{
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.9);
+      color: var(--text);
+      padding: 9px 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 13px;
+      box-shadow: 0 6px 18px rgba(2,6,23,.06);
+    }
+    .btn:hover{ border-color: rgba(193,18,31,.25); }
+    .btn.primary{
+      background: linear-gradient(135deg, var(--tet-red), var(--tet-red2));
+      color: #fff;
+      border: none;
+    }
 
-  .muted{color:var(--muted)}
+    /* Layout */
+    .wrap{
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 18px 18px 60px;
+    }
+    .layout{
+      display:grid;
+      grid-template-columns: var(--sidebar) 1fr;
+      gap: 16px;
+      align-items: start;
+      margin-top: 14px;
+    }
+    @media (max-width: 980px){
+      :root{ --sidebar: 1fr; }
+      .layout{ grid-template-columns: 1fr; }
+    }
 
-  .divider{
-    height:1px;
-    background:var(--line);
-    margin:14px 0;
-  }
+    .card{
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+    .card-pad{ padding: 18px; }
 
-  .toc{
-    position: sticky;
-    top: 16px;
-    max-height: calc(100vh - 32px);
-    overflow: auto;
-  }
+    /* Sidebar */
+    .sidebar{ position: sticky; top: 78px; }
+    @media (max-width: 980px){ .sidebar{ position: static; } }
 
-  .toc a{
-    display:block;
-    padding:10px 12px;
-    margin:6px 0;
-    border-radius:10px;
-    text-decoration:none;
-    color:var(--text);
-    background:#f1f5ff;
-    border:1px solid var(--line);
-    font-size:14px;
-  }
+    .nav-title{
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.55));
+    }
+    .nav-title b{ font-size: 14px; }
+    .nav-title span{ font-size: 12px; color: var(--muted); }
 
-  .toc a:hover{
-    background:#e0ebff;
-    color:var(--primary);
-  }
+    .nav{
+      padding: 12px;
+      display:grid;
+      gap: 10px;
+    }
+    .nav button{
+      width: 100%;
+      text-align:left;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.75);
+      color: var(--text);
+      padding: 12px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 10px;
+      transition: transform .06s ease, background .2s ease, border-color .2s ease;
+      font-size: 14px;
+    }
+    .nav button:hover{
+      background: rgba(255,255,255,.95);
+      border-color: rgba(193,18,31,.28);
+      transform: translateY(-1px);
+    }
+    .nav button.active{
+      background: linear-gradient(135deg, rgba(193,18,31,.12), rgba(245,158,11,.14));
+      border-color: rgba(193,18,31,.35);
+      box-shadow: 0 10px 20px rgba(193,18,31,.10);
+    }
+    .nav .meta{ font-size: 12px; color: var(--muted); }
 
-  .members{
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap:12px;
-  }
-  @media (max-width: 980px){
-    .members{grid-template-columns:1fr}
-  }
+    /* Hero */
+    .hero{
+      border-radius: var(--radius);
+      padding: 18px;
+      background:
+        radial-gradient(520px 240px at 12% 10%, rgba(245,158,11,.28), transparent 60%),
+        radial-gradient(520px 240px at 88% 10%, rgba(193,18,31,.22), transparent 60%),
+        linear-gradient(135deg, rgba(193,18,31,.92), rgba(245,158,11,.90));
+      color: #fff;
+      border: 1px solid rgba(255,255,255,.25);
+      box-shadow: 0 18px 40px rgba(193,18,31,.18);
+      position: relative;
+      overflow:hidden;
+    }
+    .hero h2{ margin:0 0 6px; font-size: 22px; letter-spacing: .3px; }
+    .hero p{ margin:0; opacity: .95; max-width: 78ch; line-height: 1.6; }
+    .hero .chips{ margin-top: 12px; display:flex; flex-wrap: wrap; gap: 10px; }
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.22);
+      font-size: 13px;
+      white-space: nowrap;
+    }
 
-  .member{
-    background:var(--card2);
-    border:1px solid var(--line);
-    border-radius:12px;
-    padding:14px;
-  }
+    /* Content */
+    .content{ margin-top: 14px; display:grid; gap: 14px; }
+    .tab-panel{ display:none; }
+    .tab-panel.active{ display:block; }
 
-  .member h3{
-    margin:0 0 6px;
-    color:var(--primary);
-  }
+    /* Lab section styling */
+    .lab h2{
+      margin:0 0 6px;
+      font-size: 18px;
+      color:#7f1d1d;
+      letter-spacing:.2px;
+    }
+    .muted{ color: var(--muted); }
 
-  .member p{
-    margin:4px 0;
-    font-size:14px;
-  }
+    /* Members */
+    .members{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 12px;
+      margin-top: 12px;
+    }
+    @media (max-width: 980px){ .members{ grid-template-columns: 1fr; } }
+    .member{
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.85);
+      border-radius: 14px;
+      padding: 14px;
+    }
+    .member h3{ margin:0 0 8px; color: var(--tet-red); font-size: 16px; }
+    .member p{ margin:6px 0; font-size: 14px; }
 
-  .img{
-    width:100%;
-    border-radius:12px;
-    border:1px solid var(--line);
-    overflow:hidden;
-    margin:14px 0;
-    background:#fff;
-  }
+    /* Common blocks */
+    .block{
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.85);
+      border-radius: 14px;
+      padding: 16px;
+      margin-top: 14px;
+    }
+    .divider{ height: 1px; background: var(--line); margin: 14px 0; }
 
-  .img img{
-    width:100%;
-    display:block;
-  }
+    figure.img{
+      margin: 12px 0 0;
+      border-radius: 14px;
+      overflow:hidden;
+      border: 1px solid var(--line);
+      background: var(--cardSolid);
+    }
+    figure.img img{ width: 100%; display:block; }
+    figure.img figcaption{
+      padding: 9px 10px;
+      font-size: 13px;
+      background: rgba(255,247,237,.75);
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+    }
 
-  .img figcaption{
-    padding:8px 10px;
-    font-size:13px;
-    background:#f3f6ff;
-    color:var(--muted);
-  }
+    table{
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+      overflow:hidden;
+      border-radius: 12px;
+    }
+    th, td{
+      border: 1px solid var(--line);
+      padding: 10px;
+      text-align:left;
+      vertical-align: top;
+      background: rgba(255,255,255,.9);
+    }
+    th{
+      background: rgba(245,158,11,.20);
+      color:#7c2d12;
+      font-weight: 800;
+    }
+    .tag{
+      display:inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      background: rgba(193,18,31,.10);
+      color:#9f1239;
+      border:1px solid rgba(193,18,31,.20);
+      white-space: nowrap;
+    }
 
-  table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:14px;
-  }
+    /* Gallery (bạn bị thiếu phần này) */
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(3, minmax(0,1fr));
+      gap: 14px;
+      margin-top: 12px;
+    }
+    @media (max-width: 980px){ .gallery{ grid-template-columns: 1fr; } }
 
-  th, td{
-    border:1px solid var(--line);
-    padding:10px;
-    text-align:left;
-    vertical-align: top;
-  }
+    /* Placeholder */
+    .placeholder{
+      border: 1px dashed rgba(15,23,42,.22);
+      border-radius: 14px;
+      background: rgba(255,255,255,.65);
+      padding: 18px;
+      color: var(--muted);
+    }
 
-  th{
-    background:#e0ebff;
-    color:#1e3a8a;
-  }
+    footer{
+      text-align:center;
+      color: var(--muted);
+      font-size: 13px;
+      padding-top: 18px;
+    }
 
-  td{ background:#fff; }
-
-  .tag{
-    display:inline-block;
-    padding:4px 10px;
-    border-radius:999px;
-    font-size:12px;
-    background:#e0ebff;
-    color:#1e40af;
-    border:1px solid #c7d2fe;
-    white-space: nowrap;
-  }
-
-  .gallery{
-    display:grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap:14px;
-  }
-  @media (max-width: 980px){
-    .gallery{ grid-template-columns: 1fr; }
-  }
-
-  .gallery .img{
-    margin:0;
-    height: 260px;
-    display:flex;
-    flex-direction: column;
-  }
-
-  .gallery .img img{
-    width:100%;
-    height: 200px;
-    object-fit: cover;
-    display:block;
-  }
-
-  .gallery .img figcaption{
-    margin-top:auto;
-  }
-
-  footer{
-    text-align:center;
-    color:var(--muted);
-    font-size:14px;
-    padding-top:20px;
-  }
-
-  /* ====== CHRISTMAS THEME: snow + santa + tree + lights ====== */
-  #snow{
-    position: fixed;
-    inset: 0;
-    z-index: 10;
-    pointer-events: none;
-  }
-
-  .christmas-tree{
-    position: fixed;
-    left: 14px;
-    bottom: 12px;
-    z-index: 20;
-    font-size: 46px;
-    filter: drop-shadow(0 8px 18px rgba(0,0,0,.18));
-    user-select: none;
-    pointer-events: none;
-  }
-
-  .santa{
-    position: fixed;
-    top: 84px;
-    left: -140px;
-    z-index: 25;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    user-select: none;
-    cursor: pointer;          /* click được */
-    pointer-events: auto;     /* click được */
-    animation: santaFly 14s linear infinite;
-    filter: drop-shadow(0 10px 16px rgba(0,0,0,.18));
-  }
-  .santa .emoji{ font-size: 44px; }
-  .santa .trail{
-    width: 130px;
-    height: 4px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, rgba(59,130,246,.0), rgba(59,130,246,.20), rgba(96,165,250,.0));
-  }
-  @keyframes santaFly{
-    0%   { transform: translateX(0) translateY(0) scale(1); opacity: 1; }
-    35%  { transform: translateX(calc(100vw + 260px)) translateY(10px) scale(1.02); }
-    36%  { opacity: 0; }
-    37%  { transform: translateX(-160px) translateY(-10px) scale(0.98); opacity: 0; }
-    40%  { opacity: 1; }
-    100% { transform: translateX(calc(100vw + 260px)) translateY(6px) scale(1.01); }
-  }
-
-  .header-lights{
-    position:absolute;
-    left:0; right:0; top:0;
-    height: 34px;
-    display:flex;
-    align-items:center;
-    justify-content: center;
-    gap: 10px;
-    opacity: .95;
-    pointer-events:none;
-  }
-
-  .bulb{
-    width: 10px;
-    height: 14px;
-    border-radius: 8px 8px 12px 12px;
-    background: currentColor;
-    box-shadow: 0 0 14px currentColor;
-    transform: translateY(6px);
-    animation: twinkle 1.4s ease-in-out infinite;
-  }
-  .bulb:nth-child(2n){ animation-delay: .2s; }
-  .bulb:nth-child(3n){ animation-delay: .4s; }
-  .bulb:nth-child(4n){ animation-delay: .6s; }
-
-  @keyframes twinkle{
-    0%,100%{ opacity:.35; filter:saturate(1); }
-    50%{ opacity:1; filter:saturate(1.3); }
-  }
-
-  /* 🎁 Hộp quà xuất hiện khi click Santa */
-  .gift{
-    position: fixed;
-    z-index: 30;
-    font-size: 48px;
-    animation: giftPop 1.2s ease-out forwards;
-    pointer-events: none;
-    filter: drop-shadow(0 10px 16px rgba(0,0,0,.25));
-  }
-
-  @keyframes giftPop{
-    0%{ transform: scale(0) rotate(0deg); opacity: 0; }
-    50%{ transform: scale(1.3) rotate(10deg); opacity: 1; }
-    100%{ transform: scale(1) rotate(0deg); opacity: 0; }
-  }
-
-
-  
-
-  
+    @media (prefers-reduced-motion: reduce){
+      *{ transition:none !important; animation:none !important; }
+    }
   </style>
 </head>
 
 <body>
-  <!-- CHRISTMAS LAYERS -->
-  <canvas id="snow"></canvas>
+  <div class="tet-bg" aria-hidden="true"></div>
+  <canvas id="fx" aria-hidden="true"></canvas>
 
-  <div class="santa" id="santa" title="Click trúng Noel để nhận quà 🎁">
-    <span class="emoji">🎅🛷</span>
-    <span class="trail"></span>
+  <div class="lanterns" aria-hidden="true">
+    <div class="lantern"></div>
+    <div class="lantern"></div>
+    <div class="lantern"></div>
+    <div class="lantern"></div>
   </div>
 
-  <div class="christmas-tree" aria-hidden="true">🎄</div>
+  <div class="page">
+    <!-- TOPBAR -->
+    <!-- <div class="topbar">
+      <div class="topbar-inner">
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <div>
+            <h1>TẾT NGUYÊN ĐÁN 2026 • GIỚI THIỆU NHÓM & CLOUD</h1>
+            <p>GitHub → Cloudflare Pages • Static Site</p>
+          </div>
+        </div>
 
-  <div class="wrap">
-    <header class="hero">
-      <!-- DÂY ĐÈN NOEL -->
-      <div class="header-lights" aria-hidden="true">
-        <span class="bulb" style="color:#ef4444"></span>
-        <span class="bulb" style="color:#f59e0b"></span>
-        <span class="bulb" style="color:#22c55e"></span>
-        <span class="bulb" style="color:#3b82f6"></span>
-        <span class="bulb" style="color:#a855f7"></span>
-        <span class="bulb" style="color:#ef4444"></span>
-        <span class="bulb" style="color:#f59e0b"></span>
-        <span class="bulb" style="color:#22c55e"></span>
-        <span class="bulb" style="color:#3b82f6"></span>
+        <div class="top-actions">
+          <div class="pill"><span class="dot"></span> Deploy: Online</div>
+          
+        </div>
       </div>
+    </div> -->
 
-      <h1>GIỚI THIỆU NHÓM & CLOUD COMPUTING</h1>
-      <p>
-        Website tĩnh (HTML/CSS) giới thiệu nhóm và tổng hợp kiến thức: Cloud Computing, IaaS/PaaS/SaaS/FaaS,
-        CDN và Cloudflare Pages.
+    
+
+    <div class="wrap">
+      <div class="layout">
+        <!-- SIDEBAR -->
+        <aside class="card sidebar">
+          <div class="nav-title">
+            <b>Danh mục</b>
+            <a href="/cdn-cgi/access/logout" style="text-decoration:none">
+              <button class="btn primary" id="logoutBtn">Đăng xuất</button>
+            </a>
+          </div>
+
+          <div class="nav" role="tablist" aria-label="Labs">
+            <button class="tab-btn active" role="tab" aria-selected="true" data-tab="lab1">
+              <span><b>Lab 1</b> <span class="meta">AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</span></span>
+              <span>→</span>
+            </button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="lab2">
+              <span><b>Lab 2</b> <span class="meta"></span></span>
+              <span>→</span>
+            </button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="lab3">
+              <span><b>Lab 3</b> <span class="meta">CẤU HÌNH, PHÁT HIỆN & KHẮC PHỤC LỖI OWASP</span></span>
+              <span>→</span>
+            </button>
+            <button class="tab-btn" role="tab" aria-selected="false" data-tab="lab4">
+              <span><b>Lab 4</b> <span class="meta">GIÁM SÁT, NHẬT KÝ VÀ PHÁT HIỆN BẤT THƯỜNG</span></span>
+              <span>→</span>
+            </button>
+          </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main>
+          <div class="hero">
+            <h2>BÁO CÁO AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</h2>
+          </div>
+
+          <div class="content">
+            <!-- LAB 1:  -->
+            <section id="lab1" class="card card-pad tab-panel active lab" role="tabpanel">
+              <h2>Lab 1 — AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</h2>
+              
+
+              <div class="block">
+                <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">1. Thông tin thành viên nhóm</h2>
+                <p class="muted" style="margin:0 0 10px;">Danh sách thành viên và thông tin liên hệ.</p>
+
+                <div class="members">
+                  <div class="member">
+                    <h3>Hồ Gia Huy</h3>
+                    <p><strong>MSSV:</strong> 22004027</p>
+                    <p><strong>Email:</strong> 22004027@st.vlute.edu.vn</p>
+                  </div>
+                  <div class="member">
+                    <h3>Dương Anh Văn</h3>
+                    <p><strong>MSSV:</strong> 22004046</p>
+                    <p><strong>Email:</strong> 22004046@st.vlute.edu.vn</p>
+                  </div>
+                  <div class="member">
+                    <h3>Lý Minh Tiến</h3>
+                    <p><strong>MSSV:</strong> 22004040</p>
+                    <p><strong>Email:</strong> 22004040@st.vlute.edu.vn</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="block">
+                <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">2. Cloud Computing là gì?</h2>
+                <p class="muted" style="margin:0;">
+                  Cloud computing (điện toán đám mây) là mô hình cung cấp tài nguyên CNTT như máy chủ, lưu trữ, mạng, ứng dụng… thông qua Internet. Người dùng không cần tự xây dựng hạ tầng vật lý, mà sử dụng tài nguyên theo nhu cầu và trả phí theo mức sử dụng.
+                </p>
+
+                <figure class="img">
+                  <img src="https://cf-assets.www.cloudflare.com/slt3lc6tev37/3YT0gya2bkUeuMrnGxhjAZ/4146c20c214cf001c74c0868ddfb9503/what-is-the-cloud.png" alt="Minh họa Cloud Computing">
+                  <figcaption>Hình: Minh họa Cloud Computing</figcaption>
+                </figure>
+
+                <div class="divider"></div>
+                <h3 style="margin:0 0 8px;">Lợi ích chính</h3>
+                <ul style="margin:0; padding-left: 18px;">
+                  <li>Tiết kiệm chi phí</li>
+                  <li>Dễ mở rộng</li>
+                  <li>Truy cập mọi lúc, mọi nơi</li>
+                  <li>Nhà cung cấp chịu trách nhiệm vận hành hạ tầng</li>
+                </ul>
+              </div>
+
+              <div class="block">
+                <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">3. IaaS – PaaS – SaaS – FaaS</h2>
+
+                <figure class="img">
+                  <img src="https://www.cloudflare.com/img/learning/serverless/glossary/platform-as-a-service-paas/saas-paas-iaas-diagram.svg" alt="Sơ đồ IaaS PaaS SaaS">
+                  <figcaption>Hình: Sơ đồ so sánh IaaS – PaaS – SaaS</figcaption>
+                </figure>
+
+                <div class="divider"></div>
+
+                <h3>3.1 SaaS</h3>
+                <p class="muted">
+                  Thay vì người dùng cài đặt ứng dụng trên thiết bị của mình, các ứng dụng SaaS được lưu trữ trên máy chủ đám mây và người dùng truy cập qua Internet. SaaS giống như việc thuê nhà: chủ nhà bảo trì, người thuê sử dụng gần như “nhà của mình”. Ví dụ: Salesforce, MailChimp, Slack.
+
+
+                </p>
+
+                <h3>3.2 PaaS</h3>
+                <p class="muted">
+                  Doanh nghiệp không trả tiền cho ứng dụng hoàn chỉnh mà trả tiền cho những thứ cần để xây dựng ứng dụng. Nhà cung cấp PaaS cung cấp mọi thứ cần thiết như công cụ phát triển, hạ tầng, hệ điều hành qua Internet. PaaS giống như thuê công cụ/thiết bị để xây nhà. Ví dụ: Heroku, Microsoft Azure.
+                </p>
+
+                <h3>3.3 IaaS</h3>
+                <p class="muted">
+                 Doanh nghiệp thuê máy chủ và dung lượng lưu trữ từ nhà cung cấp cloud để tự xây dựng ứng dụng của mình. IaaS giống như thuê một mảnh đất để xây bất cứ thứ gì, nhưng tự chuẩn bị vật liệu/thiết bị. Ví dụ: DigitalOcean, Google Compute Engine, OpenStack.
+                </p>
+
+                <h3>3.4 FaaS</h3>
+                <p class="muted">
+                  FaaS (điện toán phi máy chủ) chia nhỏ ứng dụng thành các thành phần (hàm) nhỏ hơn, chỉ chạy khi cần. Có thể hình dung như “thuê nhà theo từng phòng theo thời điểm sử dụng”: dùng phòng nào thì trả phí phòng đó, không dùng thì không trả.
+                </p>
+
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Mô hình</th>
+                      <th>Cung cấp</th>
+                      <th>Người dùng làm gì</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><span class="tag">IaaS</span></td>
+                      <td>Máy chủ ảo, mạng, lưu trữ</td>
+                      <td>Cài hệ điều hành, ứng dụng</td>
+                    </tr>
+                    <tr>
+                      <td><span class="tag">PaaS</span></td>
+                      <td>Nền tảng chạy ứng dụng</td>
+                      <td>Viết và triển khai code</td>
+                    </tr>
+                    <tr>
+                      <td><span class="tag">SaaS</span></td>
+                      <td>Phần mềm hoàn chỉnh</td>
+                      <td>Chỉ sử dụng</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="block">
+                <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">4. Website tĩnh thuộc mô hình nào?</h2>
+
+                <figure class="img">
+                  <img src="https://cf-assets.www.cloudflare.com/slt3lc6tev37/7Dy6rquZDDKSJoeS27Y6xc/4a671b7cc7894a475a94f0140981f5d9/what_is_a_cdn_distributed_server_map.png" alt="Bản đồ phân phối CDN">
+                  <figcaption>Hình: CDN phân phối nội dung qua máy chủ biên toàn cầu</figcaption>
+                </figure>
+
+                <div class="divider"></div>
+                <ul style="margin:0; padding-left: 18px;">
+                  <li>Hosting tĩnh trên cloud</li>
+                  <li>Kết hợp CDN</li>
+                  <li>Không cần backend server → thiên về lưu trữ + phân phối nội dung</li>
+                </ul>
+              </div>
+
+              <div class="block">
+                <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">5. Cloudflare Pages</h2>
+                <ul style="margin:0; padding-left: 18px;">
+                  <li>Kết nối Git (GitHub/GitLab)</li>
+                  <li>Push code → build & deploy tự động</li>
+                  <li>Phân phối qua CDN toàn cầu</li>
+                </ul>
+              </div>
+
+              <div class="block">
+                <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">6–7. CDN: phân phối + vai trò</h2>
+                <p class="muted">
+                  CDN (Content Delivery Network) phân phối nội dung bằng cách lưu bản sao (cache) nội dung website tại nhiều máy chủ biên (edge servers) trên toàn thế giới. Khi người dùng truy cập, CDN sẽ chọn máy chủ gần người dùng nhất để trả nội dung nhanh hơn so với server gốc.
+                    <ul style="margin:0 0 12px; padding-left: 18px;">
+                        <li>Nội dung được phân phối</li>
+                        <li>HTML, CSS, JavaScript</li>
+                        <li>Hình ảnh, video</li>
+                        <li>File tĩnh khác</li>
+                    </ul>
+                  
+                </p>
+
+                <div class="divider"></div>
+                <h3 style="margin:0 0 8px;">Hiệu năng</h3>
+                <ul style="margin:0 0 12px; padding-left: 18px;">
+                  <li>Giảm độ trễ do gần địa lý</li>
+                  <li>Cân bằng tải, tối ưu truyền tải</li>
+                  <li>Nén/thu nhỏ tệp</li>
+                </ul>
+
+                <h3 style="margin:0 0 8px;">An toàn</h3>
+                <ul style="margin:0; padding-left: 18px;">
+                  <li>Hỗ trợ TLS/SSL, tối ưu kết nối</li>
+                  <li>Giúp giảm rủi ro tấn công vào origin</li>
+                </ul>
+              </div>
+
+              <div class="block">
+                <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">8. Rủi ro & giải pháp</h2>
+
+                <h3 style="margin:0 0 8px;">Rủi ro</h3>
+                <ul style="margin:0 0 12px; padding-left: 18px;">
+                  <li>Cấu hình sai → lộ dữ liệu</li>
+                  <li>DDoS tầng ứng dụng</li>
+                  <li>Lộ API key / token</li>
+                  <li>Cache nhầm nội dung nhạy cảm</li>
+                </ul>
+
+                <h3 style="margin:0 0 8px;">Giải pháp</h3>
+                <ul style="margin:0; padding-left: 18px;">
+                  <li>Bật HTTPS</li>
+                  <li>WAF / Rate limit</li>
+                  <li>Quản lý quyền truy cập</li>
+                  <li>Không cache dữ liệu nhạy cảm</li>
+                  <li>Giám sát log/traffic</li>
+                </ul>
+              </div>
+
+              <div class="block">
+                <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">9. Hình minh họa</h2>
+                <p class="muted" style="margin:0 0 10px;">Một số hình minh họa kiến trúc Cloud, CDN và workflow Pages.</p>
+
+                <div class="gallery">
+                  <figure class="img" style="margin:0;">
+                    <img src="https://techstack-blog.s3.eu-central-1.amazonaws.com/2024/11/Cloud_Computing_Architecture_2-1.png" alt="Kiến trúc Cloud">
+                    <figcaption>Kiến trúc Cloud Computing</figcaption>
+                  </figure>
+
+                  <figure class="img" style="margin:0;">
+                    <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240312094353/How-does-CDN-work.webp" alt="Cơ chế CDN">
+                    <figcaption>Cơ chế hoạt động của CDN</figcaption>
+                  </figure>
+
+                  <figure class="img" style="margin:0;">
+                    <img src="https://www.petanikode.com/img/hugo-cloudflare-pages/workflow-github-cloudflare-pages.png" alt="Workflow GitHub Cloudflare Pages">
+                    <figcaption>Workflow GitHub → Cloudflare Pages</figcaption>
+                  </figure>
+                </div>
+              </div>
+            </section>
+
+            <!-- LAB 2: trống -->
+            <section id="lab2" class="card card-pad tab-panel" role="tabpanel">
+              <h2 style="margin:0 0 8px;color:#7f1d1d;">Lab 2 — (Trống)</h2>
+              <div class="placeholder">Bạn dán nội dung Lab 2 vào đây.</div>
+            </section>
+
+            <!-- LAB 3: trống -->
+           <!-- ✅ LAB 3: ĐẸP GIỐNG LAB 1 (KHÔNG LỒNG SECTION, KHÔNG TRÙNG ID) -->
+<section id="lab3" class="card card-pad tab-panel" role="tabpanel">
+  <h2 style="margin:0 0 6px;color:#7f1d1d;">Lab 3 — CẤU HÌNH, PHÁT HIỆN & KHẮC PHỤC LỖI OWASP</h2>
+  <p class="muted" style="margin:0 0 14px;">
+    
+  </p>
+
+  <!-- Block 1 -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h3 class="section-title" style="margin:0 0 8px;">Yêu cầu 1</h3>
+
+    <h4 style="margin:10px 0 6px;">1.1. HTTPS là gì?</h4>
+    <p class="muted" style="margin:0;">
+      HTTPS (HyperText Transfer Protocol Secure) là phiên bản bảo mật của giao thức HTTP.
+      HTTPS sử dụng SSL/TLS (Secure Sockets Layer / Transport Layer Security) để mã hóa dữ liệu
+      trong quá trình truyền giữa trình duyệt người dùng và máy chủ.
+    </p>
+  </div>
+
+  <!-- Block 2 -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h4 style="margin:0 0 6px;">Sự khác nhau giữa HTTP và HTTPS</h4>
+    <p class="muted" style="margin:0;">
+      HTTP truyền dữ liệu ở dạng văn bản thuần (plain text), do đó dễ bị nghe lén hoặc đánh cắp
+      thông tin. Trong khi đó, HTTPS mã hóa dữ liệu giúp bảo vệ thông tin khỏi các cuộc tấn công
+      như sniffing hay man-in-the-middle.
+    </p>
+  </div>
+
+  <!-- Block 3 -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h4 style="margin:0 0 8px;">HTTPS đảm bảo 3 yếu tố bảo mật quan trọng</h4>
+    <ul style="margin:0; padding-left:18px;">
+      <li><b>Confidentiality (Tính bảo mật):</b> Dữ liệu được mã hóa, kẻ tấn công không thể đọc được.</li>
+      <li><b>Integrity (Tính toàn vẹn):</b> Dữ liệu không bị thay đổi trong quá trình truyền.</li>
+      <li><b>Authentication (Xác thực):</b> Xác nhận người dùng đang truy cập đúng website.</li>
+    </ul>
+
+    <div class="divider"></div>
+
+    <p class="muted" style="margin:0;">
+      <b>Kết luận:</b> HTTPS là yêu cầu bắt buộc đối với các website hiện nay, đặc biệt là các website
+      có chức năng đăng nhập, thanh toán hoặc xử lý dữ liệu người dùng.
+    </p>
+  </div>
+
+  <!-- Block 4 -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h4 style="margin:0 0 8px;">1.2. Các rủi ro khi không sử dụng HTTPS</h4>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Dễ bị đánh cắp thông tin đăng nhập</li>
+      <li>Dễ bị tấn công Man-in-the-Middle (MITM)</li>
+      <li>Bị trình duyệt cảnh báo “Not Secure”</li>
+      <li>Ảnh hưởng uy tín website</li>
+    </ul>
+  </div>
+
+  <!-- Block 5 -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h4 style="margin:0 0 6px;">1.3. Vai trò của HTTPS trong bảo mật Cloud</h4>
+    <p class="muted" style="margin:0;">
+      Trong môi trường Cloud Computing, HTTPS giúp đảm bảo dữ liệu được truyền an toàn
+      giữa người dùng và các dịch vụ cloud như Cloudflare, AWS, Azure.
+      HTTPS kết hợp với CDN giúp tăng tốc độ tải trang mà vẫn đảm bảo an toàn thông tin.
+    </p>
+  </div>
+
+  <!-- Block 6 -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h4 style="margin:0 0 6px;">1.4. Kết luận chung</h4>
+    <p class="muted" style="margin:0;">
+      Việc sử dụng HTTPS không chỉ giúp bảo mật dữ liệu mà còn là tiêu chuẩn bắt buộc
+      trong thiết kế và triển khai các hệ thống web hiện đại trên nền tảng điện toán đám mây.
+    </p>
+  </div>
+</section>
+
+
+            <!-- LAB 4: trống -->
+            <!-- ✅ LAB 4: FULL NỘI DUNG FILE WORD (TRÌNH BÀY ĐẸP GIỐNG LAB 1) -->
+<section id="lab4" class="card card-pad tab-panel" role="tabpanel">
+  <h2 style="margin:0 0 6px;color:#7f1d1d;">Lab 4 — GIÁM SÁT, NHẬT KÝ VÀ PHÁT HIỆN BẤT THƯỜNG</h2>
+  <!-- <p class="muted" style="margin:0 0 14px;">
+    Nội dung tổng hợp theo yêu cầu bài: Monitoring, Logging, Security Visibility, đối tượng giám sát,
+    phân tích hành vi bất thường và vai trò log trong điều tra sự cố trên môi trường cloud.
+  </p> -->
+
+  <!-- ===== YÊU CẦU 1 ===== -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h3 class="section-title" style="margin:0 0 8px;">1. Yêu cầu 1</h3>
+
+    <h4 style="margin:10px 0 6px;">1.1. Monitoring</h4>
+    <p class="muted" style="margin:0;">
+      Monitoring: theo dõi hoạt động hệ thống, ứng dụng hay tài nguyên theo thời gian thực để đảm bảo hệ thống hoạt động bình thường.
+      Nó thu thập dữ liệu như CPU, RAM, băng thông, độ trễ, lỗi… giúp nhận biết ngay lúc có vấn đề xảy ra.
+    </p>
+
+    <div class="divider"></div>
+
+    <p class="muted" style="margin:0 0 8px;"><b>Khái niệm:</b> Monitoring là quá trình theo dõi và giám sát trạng thái, hiệu suất và sức khỏe của hệ thống, ứng dụng hoặc hạ tầng theo thời gian thực.</p>
+
+    <p class="muted" style="margin:0 0 6px;"><b>Nội dung</b></p>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Theo dõi chỉ số hiệu suất: CPU, RAM, latency, throughput, request rate…</li>
+      <li>Cảnh báo (alerts) khi chỉ số vượt ngưỡng cho phép.</li>
+      <li>Hiển thị dashboard & biểu đồ trạng thái hệ thống.</li>
+    </ul>
+
+    <p class="muted" style="margin:12px 0 6px;"><b>Mục đích</b></p>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Phát hiện sự cố nhanh và phản ứng kịp thời.</li>
+      <li>Đảm bảo tính sẵn sàng, ổn định và hiệu suất của dịch vụ cloud.</li>
+      <li>Giảm thời gian gián đoạn dịch vụ.</li>
+    </ul>
+
+    <p class="muted" style="margin:12px 0 0;">
+      <b>Đánh giá:</b> Monitoring giúp nhìn thấy tình trạng hiện tại của hệ thống, rất quan trọng để đảm bảo trải nghiệm người dùng không bị gián đoạn.
+      Tuy nhiên nếu chỉ monitoring mà không có logging chi tiết thì khó điều tra nguyên nhân gốc rễ.
+    </p>
+  </div>
+
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h4 style="margin:0 0 6px;">1.2. Logging</h4>
+    <p class="muted" style="margin:0;">
+      Logging là quá trình ghi lại mọi sự kiện, hành vi, hoặc lỗi xảy ra trong hệ thống hoặc ứng dụng, để lưu trữ và sử dụng cho phân tích sau này.
+    </p>
+
+    <div class="divider"></div>
+
+    <p class="muted" style="margin:0 0 8px;"><b>Khái niệm:</b> Logging là ghi lại các hành động, sự kiện hoặc thông tin xảy ra trong hệ thống (kèm timestamp, mô tả, severity…) phục vụ cho phân tích, debug, kiểm tra bảo mật hay auditing.</p>
+
+    <p class="muted" style="margin:0 0 6px;"><b>Nội dung</b></p>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Ghi lại log hệ thống, lỗi, truy cập, thay đổi cấu hình…</li>
+      <li>Tiêu chuẩn hóa định dạng để dễ truy vấn, phân tích.</li>
+      <li>Lưu trữ và tìm kiếm log: có thể trong database, SIEM, hoặc các công cụ log management.</li>
+    </ul>
+
+    <p class="muted" style="margin:12px 0 6px;"><b>Mục đích</b></p>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Điều tra nguyên nhân khi có sự cố xảy ra.</li>
+      <li>Phát hiện hành vi bất thường hoặc xâm nhập bảo mật.</li>
+      <li>Hỗ trợ kiểm toán và tuân thủ các quy định bảo mật.</li>
+    </ul>
+
+    <p class="muted" style="margin:12px 0 0;">
+      <b>Đánh giá:</b> Logging giống như “nhật ký ghi chép” quá trình xảy ra trong hệ thống.
+      Nó không theo dõi theo thời gian thực như monitoring, nhưng rất quan trọng trong phân tích forensic, tìm nguyên nhân, và compliance audit.
+    </p>
+  </div>
+
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h4 style="margin:0 0 6px;">1.3. Security Visibility</h4>
+    <p class="muted" style="margin:0;">
+      Security Visibility là khả năng nhìn thấy đầy đủ các hoạt động bảo mật và mối đe dọa trong môi trường cloud,
+      bao gồm các logs, sự kiện, cảnh báo để bảo vệ dữ liệu và dịch vụ.
+    </p>
+
+    <div class="divider"></div>
+
+    <p class="muted" style="margin:0 0 8px;"><b>Khái niệm:</b> Security Visibility là việc cung cấp tầm nhìn rõ ràng và liên tục về tất cả hoạt động bảo mật trong hệ thống cloud – từ truy cập người dùng đến sự kiện tấn công.</p>
+
+    <p class="muted" style="margin:0 0 6px;"><b>Nội dung</b></p>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Thu thập logs và cảnh báo bảo mật.</li>
+      <li>Phân tích hành vi bất thường.</li>
+      <li>Dashboard hiển thị các rủi ro/vi phạm.</li>
+    </ul>
+
+    <p class="muted" style="margin:12px 0 0;">
+      <b>Mục đích:</b> Giúp tổ chức phát hiện sớm các mối đe dọa và phản ứng nhanh, đồng thời đảm bảo compliance (tuân thủ).
+    </p>
+
+    <p class="muted" style="margin:10px 0 0;">
+      <b>Đánh giá:</b> Trong cloud – môi trường thay đổi liên tục – Security Visibility rất quan trọng vì bạn cần “thấy” hết mọi hành vi dù phức tạp hay tinh vi.
+    </p>
+  </div>
+
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h4 style="margin:0 0 6px;">1.4. Vai trò của Monitoring và Logging trong môi trường Cloud</h4>
+
+    <p class="muted" style="margin:0 0 6px;"><b>Monitoring</b></p>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Cảnh báo sớm sự cố hệ thống.</li>
+      <li>Đảm bảo uptime, hiệu năng cloud luôn ở mức tối ưu.</li>
+      <li>Giám sát tài nguyên tự động trong cloud.</li>
+    </ul>
+
+    <p class="muted" style="margin:12px 0 6px;"><b>Logging</b></p>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Ghi lại toàn bộ lịch sử hoạt động.</li>
+      <li>Hỗ trợ phân tích chi tiết khi sự cố xảy ra.</li>
+      <li>Cơ sở dữ liệu để điều tra bảo mật và kiểm toán.</li>
+    </ul>
+
+    <p class="muted" style="margin:12px 0 0;">
+      Cả hai phối hợp chặt chẽ để đảm bảo hệ thống cloud an toàn, ổn định và minh bạch.
+    </p>
+  </div>
+
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h4 style="margin:0 0 10px;">1.5. Sự khác nhau giữa Monitoring và Logging</h4>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Tiêu chí</th>
+            <th>Monitoring</th>
+            <th>Logging</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Mục đích chính</td>
+            <td>Theo dõi trạng thái thời gian thực</td>
+            <td>Ghi chép sự kiện và hành vi chi tiết</td>
+          </tr>
+          <tr>
+            <td>Thiên hướng</td>
+            <td>Quan sát hiện tại</td>
+            <td>Lưu trữ lịch sử</td>
+          </tr>
+          <tr>
+            <td>Dữ liệu</td>
+            <td>Metrics, thống kê, alerts</td>
+            <td>Log events, message details</td>
+          </tr>
+          <tr>
+            <td>Phản ứng</td>
+            <td>Cảnh báo ngay khi sự cố</td>
+            <td>Hỗ trợ phân tích sau khi sự cố xảy ra</td>
+          </tr>
+          <tr>
+            <td>Ví dụ</td>
+            <td>CPU spike, latency tăng</td>
+            <td>Chi tiết lỗi API, user login history</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ===== YÊU CẦU 2 ===== -->
+  <div class="card" style="padding:16px; margin-top:14px;">
+    <h3 class="section-title" style="margin:0 0 8px;">2. Yêu cầu 2: Xác định đối tượng cần giám sát</h3>
+    <p class="muted" style="margin:0 0 10px;">Giả sử nhóm đang vận hành một website hoặc ứng dụng web triển khai trên cloud.</p>
+
+    <h4 style="margin:10px 0 6px;">2.1. Xác định các đối tượng cần giám sát</h4>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">Người dùng truy cập hệ thống</h4>
+      <p class="muted" style="margin:0 0 6px;"><b>Vì sao cần giám sát?</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Theo dõi ai đang truy cập, từ đâu (IP, khu vực).</li>
+        <li>Phát hiện hành vi bất thường như: lượng truy cập tăng đột biến, truy cập từ quốc gia lạ, bot/crawler hoặc DDoS.</li>
+      </ul>
+      <p class="muted" style="margin:10px 0 6px;"><b>Rủi ro nếu không giám sát</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Không phát hiện được tấn công DDoS.</li>
+        <li>Hacker có thể dò quét hệ thống âm thầm.</li>
+        <li>Không kiểm soát được hành vi người dùng độc hại.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">Phiên đăng nhập (Session)</h4>
+      <p class="muted" style="margin:0 0 6px;"><b>Vì sao cần giám sát?</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Kiểm soát vòng đời phiên đăng nhập (session active / expired).</li>
+        <li>Phát hiện: Session bị chiếm đoạt; một tài khoản có nhiều session bất thường.</li>
+      </ul>
+      <p class="muted" style="margin:10px 0 6px;"><b>Rủi ro nếu không giám sát</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Hacker chiếm quyền điều khiển tài khoản.</li>
+        <li>Người dùng bị truy cập trái phép dù đã đăng xuất.</li>
+        <li>Vi phạm bảo mật dữ liệu người dùng.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">Hoạt động đăng nhập / đăng xuất</h4>
+      <p class="muted" style="margin:0 0 6px;"><b>Vì sao cần giám sát?</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Ghi nhận: thời điểm đăng nhập/đăng xuất; IP, thiết bị, trình duyệt.</li>
+        <li>Phát hiện: Brute-force attack; đăng nhập bất thường ngoài giờ.</li>
+      </ul>
+      <p class="muted" style="margin:10px 0 6px;"><b>Rủi ro nếu không giám sát</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Không phát hiện việc tấn công dò mật khẩu.</li>
+        <li>Không truy vết được khi xảy ra sự cố bảo mật.</li>
+        <li>Khó xác định tài khoản nào bị xâm nhập.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">Các yêu cầu truy cập bất thường</h4>
+      <p class="muted" style="margin:0 0 6px;"><b>Vì sao cần giám sát?</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Phát hiện: Request quá nhiều trong thời gian ngắn; truy cập API trái phép; truy cập URL nhạy cảm (admin, config…).</li>
+      </ul>
+      <p class="muted" style="margin:10px 0 6px;"><b>Rủi ro nếu không giám sát</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Bị tấn công: SQL Injection, API abuse, credential stuffing.</li>
+        <li>Tăng chi phí cloud do request bất thường.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">Các lỗi phát sinh trong hệ thống</h4>
+      <p class="muted" style="margin:0 0 6px;"><b>Vì sao cần giám sát?</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Theo dõi: lỗi server (5xx), lỗi ứng dụng, crash, timeout.</li>
+        <li>Giúp đội vận hành phản ứng nhanh.</li>
+      </ul>
+      <p class="muted" style="margin:10px 0 6px;"><b>Rủi ro nếu không giám sát</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Hệ thống lỗi nhưng không ai biết.</li>
+        <li>Trải nghiệm người dùng kém.</li>
+        <li>Mất uy tín và doanh thu.</li>
+      </ul>
+    </div>
+
+    <div class="divider"></div>
+
+    <h4 style="margin:0 0 6px;">2.2. Phân biệt Monitoring và Logging trong các tình huống cụ thể</h4>
+    <p class="muted" style="margin:0 0 6px;"><b>Nguyên tắc</b></p>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Monitoring → Phát hiện vấn đề ngay lúc đang xảy ra</li>
+      <li>Logging → Phân tích, điều tra sau khi sự cố xảy ra</li>
+    </ul>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">Tình huống 1: Phát hiện số lần đăng nhập thất bại tăng đột biến</h4>
+      <p class="muted" style="margin:0;"><b>Monitoring là phù hợp hơn</b></p>
+      <p class="muted" style="margin:10px 0 6px;"><b>Giải thích:</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Cần theo dõi realtime</li>
+        <li>Khi số lần login fail vượt ngưỡng → gửi alert</li>
+        <li>Có thể là dấu hiệu: Brute-force attack, Credential stuffing</li>
+        <li>Monitoring giúp phát hiện sớm & phản ứng ngay</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">Tình huống 2: Điều tra ai đã truy cập hệ thống vào thời điểm xảy ra sự cố</h4>
+      <p class="muted" style="margin:0;"><b>Logging là phù hợp hơn</b></p>
+      <p class="muted" style="margin:10px 0 6px;"><b>Giải thích:</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Cần xem: Ai truy cập, IP nào, thời điểm cụ thể</li>
+        <li>Đây là dữ liệu lịch sử</li>
+        <li>Logging giúp truy vết & điều tra forensic</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">Tình huống 3: Xác định nguyên nhân gây lỗi hệ thống</h4>
+      <p class="muted" style="margin:0;"><b>Logging là chính, Monitoring là hỗ trợ</b></p>
+      <p class="muted" style="margin:10px 0 6px;"><b>Giải thích:</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Monitoring: Phát hiện hệ thống lỗi, báo CPU cao, server down</li>
+        <li>Logging: Cho biết lỗi cụ thể là gì (stack trace, error message)</li>
+        <li>Logging giúp tìm nguyên nhân gốc (root cause). Monitoring chỉ cho biết có lỗi, logging cho biết vì sao lỗi.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== YÊU CẦU 3 ===== -->
+  <div class="card" style="padding:16px; margin-top:14px;">
+    <h3 class="section-title" style="margin:0 0 8px;">3. Yêu cầu 3: Phân tích hành vi bất thường</h3>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">Tình huống 1: Số lượng request tăng cao bất thường</h4>
+
+      <p class="muted" style="margin:0 0 6px;"><b>Các dấu hiệu thể hiện hành vi bất thường:</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Lượng request/giây (RPS) tăng cao so với mức trung bình</li>
+        <li>Nhiều request lặp đi lặp lại cùng một endpoint (ví dụ: /login, /api/search)</li>
+        <li>Thời gian phản hồi tăng, có thể xuất hiện timeout</li>
+        <li>Tỷ lệ lỗi tăng (429 Too Many Requests, 503 Service Unavailable,…)</li>
+      </ul>
+
+      <p class="muted" style="margin:12px 0 6px;"><b>Dấu hiệu nào chỉ phát hiện được nhờ Monitoring:</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Biểu đồ request tăng đột biến trong 1 khoảng thời gian ngắn</li>
+        <li>Alert cảnh báo: “Traffic tăng 400% trong 10 phút”</li>
+        <li>Tài nguyên bị ảnh hưởng: CPU tăng bất thường, Network I/O tăng mạnh, Latency tăng</li>
+      </ul>
+
+      <p class="muted" style="margin:12px 0 6px;"><b>Dấu hiệu nào chỉ phát hiện được nhờ Log:</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Request đến từ IP nào</li>
+        <li>Endpoint bị spam là endpoint nào</li>
+        <li>Quốc gia / vị trí truy cập</li>
+        <li>User-agent (Chrome, cURL, bot, script…)</li>
+        <li>Tần suất một IP gửi bao nhiêu request trong 1 phút</li>
+        <li>Có mẫu hành vi lặp lại hay không (ví dụ: spam cùng URL)</li>
+      </ul>
+
+      <p class="muted" style="margin:12px 0 6px;"><b>Nhận xét nếu hệ thống chỉ có monitoring mà không có log thì sẽ thiếu thông tin gì:</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Không biết IP nào gây ra</li>
+        <li>Không xác định được endpoint bị tấn công</li>
+        <li>Không có bằng chứng để điều tra</li>
+        <li>Không chặn chính xác nguồn tấn công</li>
+        <li>Không làm forensic hoặc báo cáo bảo mật</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">Tình huống 2: Nhiều lần đăng nhập thất bại liên tiếp</h4>
+
+      <p class="muted" style="margin:0 0 6px;"><b>Các dấu hiệu thể hiện hành vi bất thường:</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Một tài khoản bị nhập sai mật khẩu liên tục trong thời gian rất ngắn</li>
+        <li>Nhiều tài khoản khác nhau bị thử đăng nhập trên cùng một IP</li>
+        <li>Khoảng cách giữa các lần đăng nhập rất nhỏ (0.1–1 giây)</li>
+        <li>Tăng đột biến lỗi 401 / 403 tại endpoint /login</li>
+        <li>Đây thường là dấu hiệu: Brute-force (thử mật khẩu hàng loạt), Password spraying (dùng 1 mật khẩu cho nhiều tài khoản)</li>
+        <li>Tài khoản có thể đang bị dò hoặc bị đánh cắp</li>
+      </ul>
+
+      <p class="muted" style="margin:12px 0 6px;"><b>Dấu hiệu nào chỉ phát hiện được nhờ Monitoring:</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Monitoring cho bạn thấy xu hướng và số lượng theo thời gian</li>
+        <li>Biểu đồ “login failed” tăng bất thường</li>
+        <li>Alert: “Login failed tăng 5 lần trong 10 phút”</li>
+        <li>Tỷ lệ đăng nhập thất bại cao hơn mức trung bình</li>
+        <li>Latency cho request login có thể tăng do kiểm tra bảo mật</li>
+      </ul>
+
+      <p class="muted" style="margin:12px 0 6px;"><b>Dấu hiệu nào chỉ phát hiện được nhờ Log:</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Tài khoản nào bị thử đăng nhập</li>
+        <li>IP nào thực hiện</li>
+        <li>Vị trí địa lý truy cập</li>
+        <li>User-agent (browser hay script)</li>
+        <li>Lý do thất bại: sai mật khẩu, tài khoản khoá, token sai</li>
+        <li>Chuỗi hành vi liên tục</li>
+      </ul>
+
+      <p class="muted" style="margin:12px 0 6px;"><b>Nhận xét nếu hệ thống chỉ có monitoring mà không có log thì sẽ thiếu thông tin gì:</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Không biết tài khoản nào bị nhắm đến</li>
+        <li>Không biết IP nào đang brute-force</li>
+        <li>Không biết có ai login thành công sau khi brute-force không</li>
+        <li>Không điều tra được sau này</li>
+        <li>Không có bằng chứng bảo mật</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">Tình huống 3: Truy cập từ địa chỉ IP hoặc vị trí không quen thuộc</h4>
+
+      <p class="muted" style="margin:0 0 6px;"><b>Các dấu hiệu thể hiện hành vi bất thường:</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Đăng nhập từ quốc gia/vùng lãnh thổ chưa từng xuất hiện trước đó (ví dụ: tài khoản thường đăng nhập ở Việt Nam → bỗng xuất hiện ở Mỹ/Châu Âu)</li>
+        <li>Đổi IP liên tục chỉ trong vài phút (nghi dùng VPN / Proxy / TOR)</li>
+        <li>Một tài khoản đăng nhập từ 2 vị trí rất xa nhau trong thời gian ngắn (ví dụ: 5 phút trước ở Hà Nội → 5 phút sau ở Singapore)</li>
+        <li>IP nằm trong danh sách nguy cơ cao: IP của botnet; IP spam/blacklist; Datacenter cloud (AWS, DigitalOcean…) thay vì mạng dân dụng</li>
+        <li>Đây có thể là dấu hiệu: Tài khoản bị chiếm quyền (account takeover); Hacker thử truy cập bằng mật khẩu bị lộ; Truy cập ẩn danh bằng VPN/TOR</li>
+      </ul>
+
+      <p class="muted" style="margin:12px 0 6px;"><b>Dấu hiệu nào chỉ phát hiện nhờ monitoring:</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Tỷ lệ đăng nhập từ quốc gia lạ tăng đột biến</li>
+        <li>Alert: “30% login đến từ IP nước ngoài trong 10 phút”</li>
+        <li>Bản đồ truy cập hiển thị điểm truy cập bất thường</li>
+        <li>Số lượng session mới tăng bất thường ở khu vực không quen</li>
+      </ul>
+
+      <p class="muted" style="margin:12px 0 6px;"><b>Dấu hiệu nào chỉ phát hiện nhờ log:</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>IP chính xác: 203.0.113.45</li>
+        <li>Quốc gia / thành phố truy cập</li>
+        <li>Lịch sử IP của tài khoản đó</li>
+        <li>User-agent (trình duyệt hay script?)</li>
+        <li>Thời gian cụ thể từng lần truy cập</li>
+        <li>Chuỗi hành vi (login → đổi mật khẩu → tải dữ liệu…)</li>
+      </ul>
+
+      <p class="muted" style="margin:12px 0 6px;"><b>Nếu chỉ có monitoring mà không có log — sẽ thiếu gì?</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Không biết IP cụ thể là gì</li>
+        <li>Không biết tài khoản nào bị ảnh hưởng</li>
+        <li>Không điều tra được hành động tiếp theo sau khi login</li>
+        <li>Không có bằng chứng để báo cáo/bảo mật</li>
+        <li>Không thể chặn đúng IP / thiết lập rule firewall</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== YÊU CẦU 4 ===== -->
+  <div class="card" style="padding:16px; margin-top:14px;">
+    <h3 class="section-title" style="margin:0 0 8px;">4. Yêu cầu 4: Phân tích vai trò của log trong điều tra sự cố - Liên hệ triển khai trên môi trường điện toán đám mây</h3>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">4.1. Log giúp trả lời những câu hỏi nào khi xảy ra sự cố an toàn?</h4>
+      <p class="muted" style="margin:0 0 10px;">
+        Khi xảy ra một sự cố bảo mật, mục tiêu của điều tra là xác định đầy đủ và chính xác chuỗi sự kiện.
+        Log giúp trả lời các câu hỏi quan trọng sau:
       </p>
-      <div class="badge"><span class="dot"></span> Deploy: GitHub → Cloudflare Pages</div>
-    </header>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Ai là đối tượng thực hiện hành vi? (người dùng, tài khoản, dịch vụ, tiến trình)</li>
+        <li>Hành vi nào đã xảy ra? (đăng nhập, truy cập tài nguyên, thay đổi cấu hình, gửi request bất thường)</li>
+        <li>Thời điểm nào sự cố diễn ra? (timestamp chi tiết theo từng sự kiện)</li>
+        <li>Nguồn gốc từ đâu? (địa chỉ IP, vùng địa lý, thiết bị)</li>
+        <li>Tài nguyên nào bị ảnh hưởng? (máy chủ, cơ sở dữ liệu, ứng dụng, dữ liệu người dùng)</li>
+        <li>Mức độ nghiêm trọng của sự cố là gì? (chỉ truy cập trái phép hay đã thay đổi/xóa dữ liệu)</li>
+      </ul>
+      <p class="muted" style="margin:10px 0 0;">
+        Thông qua log, đội ngũ vận hành có thể xây dựng lại timeline sự cố, từ lúc bắt đầu đến khi bị phát hiện và xử lý.
+      </p>
+    </div>
 
-    <div class="grid">
-      <!-- Sidebar / Mục lục -->
-      <aside class="card toc">
-        <h2>Mục lục</h2>
-        <a href="#nhom">1. Thành viên nhóm</a>
-        <a href="#cloud">2. Cloud Computing</a>
-        <a href="#models">3. IaaS – PaaS – SaaS – FaaS</a>
-        <a href="#static">4. Website tĩnh</a>
-        <a href="#pages">5. Cloudflare Pages</a>
-        <a href="#cdn">6. CDN phân phối nội dung</a>
-        <a href="#cdn-role">7. Vai trò CDN (hiệu năng & an toàn)</a>
-        <a href="#security">8. Rủi ro & giải pháp</a>
-        <a href="#gallery">9. Hình minh họa</a>
-      </aside>
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">4.2. Hệ quả nếu hệ thống không có log</h4>
 
-      <!-- Main content -->
-      <main>
-        <!-- 1 -->
-        <section id="nhom" class="card">
-          <h2>1. Thông tin thành viên nhóm</h2>
-          <p class="muted">Danh sách thành viên và thông tin liên hệ.</p>
+      <p class="muted" style="margin:0 0 6px;"><b>Khó khăn trong việc xác định nguyên nhân</b></p>
+      <p class="muted" style="margin:0 0 10px;">
+        Nếu hệ thống không ghi log hoặc log không đầy đủ, việc xác định nguyên nhân sự cố sẽ gặp rất nhiều khó khăn:
+      </p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Không phân biệt được sự cố do: lỗi cấu hình hệ thống, lỗi phần mềm, hay hành vi tấn công có chủ đích</li>
+        <li>Không xác định được điểm bắt đầu của sự cố</li>
+        <li>Không biết phạm vi ảnh hưởng thực tế</li>
+      </ul>
+      <p class="muted" style="margin:10px 0 0;">
+        Điều này khiến quá trình khắc phục mang tính đoán mò, thiếu cơ sở kỹ thuật.
+      </p>
 
-          <div class="members">
-            <div class="member">
-              <h3>Hồ Gia Huy</h3>
-              <p><strong>MSSV:</strong> 22004027</p>
-              <p><strong>Email:</strong> 22004027@st.vlute.edu.vn</p>
-            </div>
-            <div class="member">
-              <h3>Dương Anh Văn</h3>
-              <p><strong>MSSV:</strong> 22004046</p>
-              <p><strong>Email:</strong> 22004046@st.vlute.edu.vn</p>
-            </div>
-            <div class="member">
-              <h3>Lý Minh Tiến</h3>
-              <p><strong>MSSV:</strong> 22004040</p>
-              <p><strong>Email:</strong> 22004040@st.vlute.edu.vn</p>
-            </div>
+      <div class="divider"></div>
+
+      <p class="muted" style="margin:0 0 6px;"><b>Khả năng xác định trách nhiệm</b></p>
+      <p class="muted" style="margin:0 0 10px;">
+        Trong môi trường doanh nghiệp hoặc cloud, trách nhiệm có thể thuộc về: người dùng, quản trị viên, nhà cung cấp dịch vụ hoặc bên thứ ba.
+        Nếu không có log, gần như không thể xác định trách nhiệm cụ thể, do không có bằng chứng:
+      </p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>ai đã thực hiện hành vi</li>
+        <li>hành vi đó diễn ra khi nào</li>
+        <li>có vi phạm chính sách hay không</li>
+      </ul>
+      <p class="muted" style="margin:10px 0 0;">
+        Điều này ảnh hưởng nghiêm trọng đến: quản trị nội bộ, kiểm toán, tuân thủ pháp lý.
+      </p>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">4.3. Rủi ro của log nếu triển khai không đúng cách</h4>
+      <p class="muted" style="margin:0 0 10px;">
+        Mặc dù log rất quan trọng, nhưng nếu triển khai sai có thể trở thành nguồn rủi ro bảo mật mới.
+      </p>
+
+      <p class="muted" style="margin:0 0 6px;"><b>4.3.1. Rủi ro khi ghi log quá chi tiết</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Lộ thông tin nhạy cảm như: mật khẩu, token xác thực, session ID, dữ liệu cá nhân người dùng</li>
+        <li>Tăng chi phí lưu trữ log trong môi trường cloud</li>
+        <li>Khó phân tích do lượng log quá lớn và nhiễu</li>
+      </ul>
+
+      <div class="divider"></div>
+
+      <p class="muted" style="margin:0 0 6px;"><b>4.3.2. Rủi ro khi log không được bảo vệ đúng cách</b></p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Hacker có thể xóa hoặc chỉnh sửa log để che giấu hành vi</li>
+        <li>Log bị truy cập trái phép sẽ làm lộ thông tin hệ thống</li>
+        <li>Mất tính toàn vẹn của bằng chứng điều tra</li>
+      </ul>
+
+      <p class="muted" style="margin:10px 0 0;">
+        Do đó, log cần được: phân quyền truy cập chặt chẽ, lưu trữ an toàn, đảm bảo không thể chỉnh sửa trái phép.
+      </p>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">4.4. Các lớp monitoring và logging trong môi trường cloud</h4>
+      <p class="muted" style="margin:0 0 10px;">
+        Trong môi trường điện toán đám mây, monitoring và logging được triển khai ở nhiều lớp khác nhau:
+      </p>
+      <ul style="margin:0; padding-left:18px;">
+        <li><b>Lớp hạ tầng (Infrastructure layer):</b> Tình trạng máy ảo; CPU, RAM, dung lượng lưu trữ; sự kiện khởi động, dừng, lỗi tài nguyên</li>
+        <li><b>Lớp mạng (Network layer):</b> Lưu lượng vào/ra hệ thống; kết nối mạng; firewall, load balancer, IP, port</li>
+        <li><b>Lớp ứng dụng (Application layer):</b> Request HTTP/HTTPS; lỗi ứng dụng; hoạt động người dùng; log nghiệp vụ</li>
+      </ul>
+      <p class="muted" style="margin:10px 0 0;">
+        Cloud cung cấp nền tảng, nhưng chất lượng log phụ thuộc lớn vào cách ứng dụng được thiết kế và ghi log.
+      </p>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">4.5. Những gì cloud không thể giám sát trong ứng dụng</h4>
+      <p class="muted" style="margin:0 0 10px;">
+        Mặc dù cloud hỗ trợ mạnh mẽ monitoring và logging, vẫn tồn tại những giới hạn:
+      </p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Cloud không hiểu được logic nghiệp vụ bên trong mã nguồn</li>
+        <li>Không thể suy luận ý định thực sự của người dùng</li>
+        <li>Không phân tích được dữ liệu đã mã hóa end-to-end</li>
+        <li>Không phát hiện hành vi bất thường nếu ứng dụng không ghi log tương ứng</li>
+      </ul>
+      <p class="muted" style="margin:10px 0 0;">
+        Do đó, việc thiết kế cơ chế logging là trách nhiệm của nhà phát triển, không thể phụ thuộc hoàn toàn vào nền tảng cloud.
+      </p>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">4.6. Vai trò của monitoring trong phát hiện sự cố</h4>
+      <p class="muted" style="margin:0 0 10px;">
+        Monitoring chủ yếu hỗ trợ phát hiện sớm (early detection) các dấu hiệu bất thường, chẳng hạn:
+      </p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>lưu lượng truy cập tăng đột biến</li>
+        <li>số lượng lỗi tăng cao</li>
+        <li>số lần đăng nhập thất bại tăng nhanh</li>
+      </ul>
+      <p class="muted" style="margin:10px 0 0;">
+        Monitoring giúp kích hoạt cảnh báo kịp thời, nhưng không cung cấp đủ chi tiết để điều tra nguyên nhân gốc rễ.
+      </p>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">4.7. Logging và vai trò trong Incident Response</h4>
+      <p class="muted" style="margin:0 0 10px;">
+        Logging đóng vai trò trung tâm trong quá trình Incident Response, bao gồm:
+      </p>
+      <ul style="margin:0; padding-left:18px;">
+        <li>Thu thập và bảo toàn bằng chứng</li>
+        <li>Phân tích chuỗi sự kiện tấn công</li>
+        <li>Xác định phạm vi và mức độ ảnh hưởng</li>
+        <li>Hỗ trợ ra quyết định khắc phục</li>
+        <li>Phục vụ báo cáo, kiểm toán và pháp lý</li>
+        <li>Cải thiện chính sách bảo mật sau sự cố</li>
+      </ul>
+      <p class="muted" style="margin:10px 0 0;">
+        → Incident Response không thể thực hiện hiệu quả nếu thiếu log.
+      </p>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 10px;">4.8. So sánh hậu quả giữa phát hiện sớm và phát hiện muộn</h4>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Phát hiện sớm</th>
+              <th>Phát hiện muộn</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Giảm thiểu thiệt hại</td>
+              <td>Thiệt hại lớn</td>
+            </tr>
+            <tr>
+              <td>Khoanh vùng nhanh</td>
+              <td>Phạm vi ảnh hưởng rộng</td>
+            </tr>
+            <tr>
+              <td>Dễ khắc phục</td>
+              <td>Phục hồi phức tạp</td>
+            </tr>
+            <tr>
+              <td>Ít ảnh hưởng uy tín</td>
+              <td>Ảnh hưởng nghiêm trọng</td>
+            </tr>
+            <tr>
+              <td>Tuân thủ pháp lý tốt hơn</td>
+              <td>Có nguy cơ vi phạm</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+            <footer>© 2026 — Website tĩnh báo cáo Cloud Computing • Nhóm thực hiện</footer>
           </div>
-        </section>
-
-        <!-- 2 -->
-        <section id="cloud" class="card" style="margin-top:18px;">
-          <h2>2. Cloud Computing là gì?</h2>
-          <p class="muted">
-            Cloud computing (điện toán đám mây) là mô hình cung cấp tài nguyên CNTT như máy chủ, lưu trữ,
-            mạng, ứng dụng… thông qua Internet. Người dùng không cần tự xây dựng hạ tầng vật lý, mà sử dụng
-            tài nguyên theo nhu cầu và trả phí theo mức sử dụng.
-          </p>
-
-          <figure class="img">
-            <img src="https://cf-assets.www.cloudflare.com/slt3lc6tev37/3YT0gya2bkUeuMrnGxhjAZ/4146c20c214cf001c74c0868ddfb9503/what-is-the-cloud.png" alt="Minh họa Cloud Computing">
-            <figcaption>Hình: Minh họa Cloud Computing</figcaption>
-          </figure>
-
-          <div class="divider"></div>
-          <h3>Lợi ích chính</h3>
-          <ul>
-            <li>Tiết kiệm chi phí</li>
-            <li>Dễ mở rộng</li>
-            <li>Truy cập mọi lúc, mọi nơi</li>
-            <li>Nhà cung cấp chịu trách nhiệm vận hành hạ tầng</li>
-          </ul>
-        </section>
-
-        <!-- 3 -->
-        <section id="models" class="card" style="margin-top:18px;">
-          <h2>3. IaaS – PaaS – SaaS – FaaS khác nhau như thế nào?</h2>
-
-          <figure class="img">
-            <img src="https://www.cloudflare.com/img/learning/serverless/glossary/platform-as-a-service-paas/saas-paas-iaas-diagram.svg" alt="Sơ đồ IaaS PaaS SaaS">
-            <figcaption>Hình: Sơ đồ so sánh IaaS – PaaS – SaaS</figcaption>
-          </figure>
-
-          <h3>3.1 SaaS (Software as a Service)</h3>
-          <p class="muted">
-            Thay vì người dùng cài đặt ứng dụng trên thiết bị của mình, các ứng dụng SaaS được lưu trữ trên
-            máy chủ đám mây và người dùng truy cập qua Internet. SaaS giống như việc thuê nhà: chủ nhà bảo trì,
-            người thuê sử dụng gần như “nhà của mình”. Ví dụ: Salesforce, MailChimp, Slack.
-          </p>
-
-          <h3>3.2 PaaS (Platform as a Service)</h3>
-          <p class="muted">
-            Doanh nghiệp không trả tiền cho ứng dụng hoàn chỉnh mà trả tiền cho những thứ cần để xây dựng ứng dụng.
-            Nhà cung cấp PaaS cung cấp mọi thứ cần thiết như công cụ phát triển, hạ tầng, hệ điều hành qua Internet.
-            PaaS giống như thuê công cụ/thiết bị để xây nhà. Ví dụ: Heroku, Microsoft Azure.
-          </p>
-
-          <h3>3.3 IaaS (Infrastructure as a Service)</h3>
-          <p class="muted">
-            Doanh nghiệp thuê máy chủ và dung lượng lưu trữ từ nhà cung cấp cloud để tự xây dựng ứng dụng của mình.
-            IaaS giống như thuê một mảnh đất để xây bất cứ thứ gì, nhưng tự chuẩn bị vật liệu/thiết bị. Ví dụ:
-            DigitalOcean, Google Compute Engine, OpenStack.
-          </p>
-
-          <h3>3.4 FaaS (Function as a Service) / Serverless</h3>
-          <p class="muted">
-            FaaS (điện toán phi máy chủ) chia nhỏ ứng dụng thành các thành phần (hàm) nhỏ hơn, chỉ chạy khi cần.
-            Có thể hình dung như “thuê nhà theo từng phòng theo thời điểm sử dụng”: dùng phòng nào thì trả phí phòng đó,
-            không dùng thì không trả.
-          </p>
-
-          <div class="divider"></div>
-          <table>
-            <thead>
-              <tr>
-                <th>Mô hình</th>
-                <th>Cung cấp</th>
-                <th>Người dùng làm gì</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><span class="tag">IaaS</span></td>
-                <td>Máy chủ ảo, mạng, lưu trữ</td>
-                <td>Cài hệ điều hành, ứng dụng</td>
-              </tr>
-              <tr>
-                <td><span class="tag">PaaS</span></td>
-                <td>Nền tảng chạy ứng dụng</td>
-                <td>Viết và triển khai code</td>
-              </tr>
-              <tr>
-                <td><span class="tag">SaaS</span></td>
-                <td>Phần mềm hoàn chỉnh</td>
-                <td>Chỉ sử dụng</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-
-        <!-- 4 -->
-        <section id="static" class="card" style="margin-top:18px;">
-          <h2>4. Website tĩnh thuộc mô hình nào trong cloud?</h2>
-          <figure class="img">
-            <img src="https://cf-assets.www.cloudflare.com/slt3lc6tev37/7Dy6rquZDDKSJoeS27Y6xc/4a671b7cc7894a475a94f0140981f5d9/what_is_a_cdn_distributed_server_map.png" alt="Bản đồ phân phối CDN">
-            <figcaption>Hình: CDN phân phối nội dung qua máy chủ biên toàn cầu</figcaption>
-          </figure>
-
-          <p class="muted">
-            Website tĩnh (HTML, CSS, JavaScript) thường thuộc mô hình:
-          </p>
-          <ul>
-            <li>Hosting tĩnh trên cloud</li>
-            <li>Kết hợp CDN</li>
-            <li>Không cần backend server → không phải PaaS hay SaaS, mà là dịch vụ lưu trữ + phân phối nội dung trong cloud.</li>
-          </ul>
-        </section>
-
-        <!-- 5 -->
-        <section id="pages" class="card" style="margin-top:18px;">
-          <h2>5. Cloudflare Pages hoạt động theo cơ chế gì?</h2>
-          <ul>
-            <li>Kết nối với Git (GitHub/GitLab)</li>
-            <li>Khi push code → hệ thống tự động build</li>
-            <li>Website được deploy lên hạ tầng cloud</li>
-            <li>Nội dung được phân phối qua CDN toàn cầu của Cloudflare</li>
-            <li>Mô hình CI/CD + CDN + Cloud, rất phù hợp cho website tĩnh</li>
-          </ul>
-        </section>
-
-        <!-- 6 -->
-        <section id="cdn" class="card" style="margin-top:18px;">
-          <h2>6. CDN phân phối nội dung ra sao?</h2>
-          <p class="muted">
-            CDN (Content Delivery Network) phân phối nội dung bằng cách lưu bản sao (cache) nội dung website tại nhiều
-            máy chủ biên (edge servers) trên toàn thế giới. Khi người dùng truy cập, CDN sẽ chọn máy chủ gần người dùng nhất
-            để trả nội dung nhanh hơn so với server gốc.
-          </p>
-
-          <h3>Nội dung được phân phối</h3>
-          <ul>
-            <li>HTML, CSS, JavaScript</li>
-            <li>Hình ảnh, video</li>
-            <li>File tĩnh khác</li>
-          </ul>
-        </section>
-
-        <!-- 7 -->
-        <section id="cdn-role" class="card" style="margin-top:18px;">
-          <h2>7. CDN có vai trò gì đối với hiệu năng và an toàn?</h2>
-
-          <h3>7.1 Hiệu năng</h3>
-          <ul>
-            <li>CDN cải thiện tốc độ tải trang web.</li>
-            <li>Giảm khoảng cách địa lý giữa người dùng và tài nguyên (phục vụ từ trung tâm dữ liệu gần hơn).</li>
-            <li>Tối ưu phần cứng/phần mềm (cân bằng tải, ổ SSD...) giúp dữ liệu đến tay người dùng nhanh hơn.</li>
-            <li>Giảm lượng dữ liệu truyền tải bằng thu nhỏ và nén tệp → tải nhanh hơn.</li>
-          </ul>
-
-          <h3>7.2 An toàn</h3>
-          <ul>
-            <li>Tăng tốc và tối ưu các trang dùng TLS/SSL (tối ưu tái sử dụng kết nối).</li>
-            <li>CDN hỗ trợ bảo mật bằng chứng chỉ TLS/SSL mới nhất, đảm bảo xác thực, mã hóa và tính toàn vẹn dữ liệu.</li>
-          </ul>
-        </section>
-
-        <!-- 8 -->
-        <section id="security" class="card" style="margin-top:18px;">
-          <h2>8. Những rủi ro bảo mật còn tồn tại? & Giải pháp</h2>
-
-          <h3>8.1 Rủi ro</h3>
-          <ul>
-            <li>Cấu hình sai → lộ dữ liệu</li>
-            <li>DDoS tinh vi ở tầng ứng dụng (Layer 7)</li>
-            <li>Lộ API key / token</li>
-            <li>Cache nhầm nội dung nhạy cảm</li>
-            <li>Lỗi trong serverless functions</li>
-          </ul>
-
-          <div class="divider"></div>
-
-          <h3>8.2 Giải pháp</h3>
-          <ul>
-            <li>Sử dụng HTTPS</li>
-            <li>Cấu hình WAF (Web Application Firewall)</li>
-            <li>Giới hạn tốc độ truy cập (Rate limiting)</li>
-            <li>Quản lý quyền truy cập chặt chẽ</li>
-            <li>Không cache dữ liệu nhạy cảm</li>
-            <li>Giám sát log và traffic thường xuyên</li>
-          </ul>
-        </section>
-
-        <!-- 9 -->
-        <section id="gallery" class="card" style="margin-top:18px;">
-          <h2>9. Ví dụ hình ảnh minh họa</h2>
-          <p class="muted">Một số hình minh họa kiến trúc Cloud, cơ chế CDN và workflow GitHub → Cloudflare Pages.</p>
-
-          <div class="gallery">
-            <figure class="img" style="margin:0;">
-              <img src="https://techstack-blog.s3.eu-central-1.amazonaws.com/2024/11/Cloud_Computing_Architecture_2-1.png" alt="Kiến trúc Cloud">
-              <figcaption>Kiến trúc Cloud Computing</figcaption>
-            </figure>
-
-            <figure class="img" style="margin:0;">
-              <img src="https://media.geeksforgeeks.org/wp-content/uploads/20240312094353/How-does-CDN-work.webp" alt="Cơ chế CDN">
-              <figcaption>Cơ chế hoạt động của CDN</figcaption>
-            </figure>
-
-            <figure class="img" style="margin:0;">
-              <img src="https://www.petanikode.com/img/hugo-cloudflare-pages/workflow-github-cloudflare-pages.png" alt="Workflow GitHub Cloudflare Pages">
-              <figcaption>Workflow GitHub → Cloudflare Pages</figcaption>
-            </figure>
-          </div>
-        </section>
-
-        
-
-        <footer>
-          © 2025 — Website tĩnh báo cáo Cloud Computing • Nhóm thực hiện
-  
-
-        </footer>
-      </main>
+        </main>
+      </div>
     </div>
   </div>
 
   <script>
-    // Snowfall on canvas
-    const canvas = document.getElementById("snow");
-    const ctx = canvas.getContext("2d");
+    // Tabs
+    const buttons = document.querySelectorAll(".tab-btn");
+    const panels  = document.querySelectorAll(".tab-panel");
 
-    let w, h, flakes;
+    function activate(tabId){
+      buttons.forEach(btn => {
+        const isActive = btn.dataset.tab === tabId;
+        btn.classList.toggle("active", isActive);
+        btn.setAttribute("aria-selected", isActive ? "true" : "false");
+      });
+      panels.forEach(p => p.classList.toggle("active", p.id === tabId));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    buttons.forEach(btn => btn.addEventListener("click", () => activate(btn.dataset.tab)));
+
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const ok = document.getElementById(id);
+      if (ok) activate(id);
+    }
+
+    // Tết FX: confetti nhẹ + lì xì
+    const canvas = document.getElementById("fx");
+    const ctx = canvas.getContext("2d");
+    let w, h;
 
     function resize(){
       w = canvas.width = window.innerWidth;
       h = canvas.height = window.innerHeight;
-      const count = Math.min(220, Math.floor(w / 6));
-      flakes = Array.from({length: count}, () => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: 0.8 + Math.random() * 2.2,
-        vy: 0.6 + Math.random() * 1.8,
-        vx: -0.4 + Math.random() * 0.8,
-        a: 0.35 + Math.random() * 0.65
-      }));
+    }
+    window.addEventListener("resize", resize);
+    resize();
+
+    const confetti = [];
+    function spawnConfetti(x, y){
+      const n = 26;
+      for(let i=0;i<n;i++){
+        confetti.push({
+          x, y,
+          vx: (Math.random()*2-1)*3.0,
+          vy: (Math.random()*2-1)*3.0,
+          r: 1.8 + Math.random()*2.6,
+          a: 1,
+          g: 0.05 + Math.random()*0.06,
+          c: Math.random() > 0.5 ? "rgba(193,18,31," : "rgba(245,158,11,"
+        });
+      }
     }
 
     function tick(){
       ctx.clearRect(0,0,w,h);
-      const wind = Math.sin(Date.now()/2600) * 0.25;
+      for(let i=confetti.length-1; i>=0; i--){
+        const p = confetti[i];
+        p.vy += p.g;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.a -= 0.014;
 
-      for(const f of flakes){
-        ctx.globalAlpha = f.a;
         ctx.beginPath();
-        ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
-        ctx.fillStyle = "#ffffff";
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = p.c + p.a + ")";
         ctx.fill();
 
-        f.x += (f.vx + wind);
-        f.y += f.vy;
-
-        if (f.y > h + 10) { f.y = -10; f.x = Math.random() * w; }
-        if (f.x < -10) f.x = w + 10;
-        if (f.x > w + 10) f.x = -10;
+        if(p.a <= 0 || p.y > h + 40) confetti.splice(i,1);
       }
-
       requestAnimationFrame(tick);
     }
-
-    window.addEventListener("resize", resize);
-    resize();
     tick();
-  </script>
 
-  <script>
-    // 🎅 Click Santa → hiện quà 🎁
-    const santa = document.getElementById("santa");
-    santa.addEventListener("click", (e) => {
-      const gift = document.createElement("div");
-      gift.className = "gift";
-      gift.textContent = "🎁";
-      gift.style.left = (e.clientX - 20) + "px";
-      gift.style.top = (e.clientY - 20) + "px";
-      document.body.appendChild(gift);
-      setTimeout(() => gift.remove(), 1200);
+    document.addEventListener("click", (e) => {
+      if (e.target && e.target.id === "logoutBtn") return;
+
+      spawnConfetti(e.clientX, e.clientY);
+
+      const lx = document.createElement("div");
+      lx.className = "lixi";
+      lx.textContent = "🧧";
+      lx.style.left = (e.clientX - 18) + "px";
+      lx.style.top = (e.clientY - 22) + "px";
+      document.body.appendChild(lx);
+      setTimeout(() => lx.remove(), 1200);
     });
   </script>
 </body>

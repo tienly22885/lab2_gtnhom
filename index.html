@@ -979,87 +979,348 @@ TOÁN ĐÁM MÂY</h2>
 
             <!-- LAB 3: trống -->
            <!-- ✅ LAB 3: ĐẸP GIỐNG LAB 1 (KHÔNG LỒNG SECTION, KHÔNG TRÙNG ID) -->
+<!-- ✅ LAB 3: FULL NỘI DUNG TỪ FILE WORD + HÌNH ẢNH -->
 <section id="lab3" class="card card-pad tab-panel" role="tabpanel">
   <h2 style="margin:0 0 6px;color:#7f1d1d;">Lab 3 — CẤU HÌNH, PHÁT HIỆN & KHẮC PHỤC LỖI OWASP</h2>
-  <p class="muted" style="margin:0 0 14px;">
-    
-  </p>
 
-  <!-- Block 1 -->
-  <div class="card" id="lab3-yc1" data-nav="Yêu cầu 1: HTTPS là gì?" style="padding:16px; margin-top:12px;">
+  <!-- ===== YC1 ===== -->
+  <div class="card" id="lab3-yc1" data-nav="Yêu cầu 1: HTTPS" style="padding:16px; margin-top:12px;">
+    <h3 style="margin:0 0 8px;">Yêu cầu 1</h3>
 
-    <h3 class="section-title" style="margin:0 0 8px;">Yêu cầu 1</h3>
-
-    <h4 style="margin:10px 0 6px;">1.1. HTTPS là gì?</h4>
+    <h4 style="margin:10px 0 6px;">1.1 HTTPS là gì?</h4>
     <p class="muted" style="margin:0;">
       HTTPS (HyperText Transfer Protocol Secure) là phiên bản bảo mật của giao thức HTTP.
-      HTTPS sử dụng SSL/TLS (Secure Sockets Layer / Transport Layer Security) để mã hóa dữ liệu
-      trong quá trình truyền giữa trình duyệt người dùng và máy chủ.
+      HTTPS sử dụng SSL/TLS để mã hóa dữ liệu trong quá trình truyền giữa trình duyệt và máy chủ.
     </p>
-  </div>
 
-  <!-- Block 2 -->
-  <div class="card" id="lab3-http-https" data-nav="Khác nhau HTTP và HTTPS" style="padding:16px; margin-top:12px;">
+    <div class="divider"></div>
 
     <h4 style="margin:0 0 6px;">Sự khác nhau giữa HTTP và HTTPS</h4>
-    <p class="muted" style="margin:0;">
-      HTTP truyền dữ liệu ở dạng văn bản thuần (plain text), do đó dễ bị nghe lén hoặc đánh cắp
-      thông tin. Trong khi đó, HTTPS mã hóa dữ liệu giúp bảo vệ thông tin khỏi các cuộc tấn công
-      như sniffing hay man-in-the-middle.
-    </p>
-  </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Tiêu chí</th>
+          <th>HTTP</th>
+          <th>HTTPS</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Bảo mật</td>
+          <td>Không mã hóa, dữ liệu dễ bị đánh cắp</td>
+          <td>Mã hóa bằng SSL/TLS, bảo mật dữ liệu</td>
+        </tr>
+        <tr>
+          <td>Xác thực</td>
+          <td>Không có xác thực máy chủ</td>
+          <td>Có chứng chỉ số xác thực danh tính website</td>
+        </tr>
+        <tr>
+          <td>SEO</td>
+          <td>Không được ưu tiên</td>
+          <td>Google ưu tiên xếp hạng</td>
+        </tr>
+      </tbody>
+    </table>
 
-  <!-- Block 3 -->
-  <div class="card" id="lab3-3yeuto" data-nav="3 yếu tố bảo mật của HTTPS" style="padding:16px; margin-top:12px;">
+    <div class="divider"></div>
 
     <h4 style="margin:0 0 8px;">HTTPS đảm bảo 3 yếu tố bảo mật quan trọng</h4>
     <ul style="margin:0; padding-left:18px;">
-      <li><b>Confidentiality (Tính bảo mật):</b> Dữ liệu được mã hóa, kẻ tấn công không thể đọc được.</li>
-      <li><b>Integrity (Tính toàn vẹn):</b> Dữ liệu không bị thay đổi trong quá trình truyền.</li>
-      <li><b>Authentication (Xác thực):</b> Xác nhận người dùng đang truy cập đúng website.</li>
+      <li><b>Confidentiality:</b> Dữ liệu được mã hóa, kẻ tấn công không thể đọc.</li>
+      <li><b>Integrity:</b> Dữ liệu không bị sửa đổi khi truyền.</li>
+      <li><b>Authentication:</b> Xác nhận người dùng truy cập đúng website.</li>
     </ul>
 
     <div class="divider"></div>
 
-    <p class="muted" style="margin:0;">
-      <b>Kết luận:</b> HTTPS là yêu cầu bắt buộc đối với các website hiện nay, đặc biệt là các website
-      có chức năng đăng nhập, thanh toán hoặc xử lý dữ liệu người dùng.
-    </p>
-  </div>
-
-  <!-- Block 4 -->
-  <div class="card" id="lab3-ruiro" data-nav="Rủi ro khi không dùng HTTPS" style="padding:16px; margin-top:12px;">
-
-    <h4 style="margin:0 0 8px;">1.2. Các rủi ro khi không sử dụng HTTPS</h4>
+    <h4 style="margin:0 0 8px;">Các rủi ro khi không sử dụng HTTPS</h4>
     <ul style="margin:0; padding-left:18px;">
       <li>Dễ bị đánh cắp thông tin đăng nhập</li>
-      <li>Dễ bị tấn công Man-in-the-Middle (MITM)</li>
+      <li>Dễ bị tấn công MITM</li>
       <li>Bị trình duyệt cảnh báo “Not Secure”</li>
       <li>Ảnh hưởng uy tín website</li>
     </ul>
-  </div>
 
-  <!-- Block 5 -->
-  <div class="card" id="lab3-cloud" data-nav="Vai trò HTTPS trong Cloud" style="padding:16px; margin-top:12px;">
+    <div class="divider"></div>
 
-    <h4 style="margin:0 0 6px;">1.3. Vai trò của HTTPS trong bảo mật Cloud</h4>
+    <h4 style="margin:0 0 6px;">Vai trò HTTPS trong Cloud</h4>
     <p class="muted" style="margin:0;">
-      Trong môi trường Cloud Computing, HTTPS giúp đảm bảo dữ liệu được truyền an toàn
-      giữa người dùng và các dịch vụ cloud như Cloudflare, AWS, Azure.
-      HTTPS kết hợp với CDN giúp tăng tốc độ tải trang mà vẫn đảm bảo an toàn thông tin.
+      Trong môi trường Cloud, HTTPS giúp bảo vệ dữ liệu truyền giữa người dùng và các dịch vụ cloud.
+      Khi kết hợp CDN, website vừa nhanh vừa an toàn.
     </p>
   </div>
 
-  <!-- Block 6 -->
+  <!-- ===== SECURITY HEADERS ===== -->
+  <div class="card" id="lab3-headers" data-nav="HTTP Security Headers" style="padding:16px; margin-top:12px;">
+    <h3 style="margin:0 0 8px;">HTTP Security Headers</h3>
+    <p class="muted" style="margin:0 0 10px;">
+      HTTP Security Headers là các header giúp tăng cường bảo mật cho web bằng cách kiểm soát hành vi trình duyệt,
+      giảm nguy cơ XSS, clickjacking, MIME sniffing, lộ referrer…
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Header</th>
+          <th>Chức năng</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Strict-Transport-Security</td>
+          <td>Ép trình duyệt luôn dùng HTTPS, chống downgrade/SSLstrip</td>
+        </tr>
+        <tr>
+          <td>Content-Security-Policy</td>
+          <td>Giới hạn nguồn script/style/image… giảm XSS</td>
+        </tr>
+        <tr>
+          <td>X-Frame-Options</td>
+          <td>Chặn website bị nhúng iframe (chống clickjacking)</td>
+        </tr>
+        <tr>
+          <td>X-Content-Type-Options</td>
+          <td>Ngăn MIME sniffing</td>
+        </tr>
+        <tr>
+          <td>Referrer-Policy</td>
+          <td>Kiểm soát dữ liệu referrer gửi đi</td>
+        </tr>
+        <tr>
+          <td>Permissions-Policy</td>
+          <td>Giới hạn quyền camera, mic, geolocation…</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="muted" style="margin:12px 0 0;">
+      <b>Gợi ý triển khai:</b> nếu deploy Cloudflare Pages, bạn có thể cấu hình thêm headers trong
+      file cấu hình (tuỳ cách deploy) hoặc qua Cloudflare rules.
+    </p>
+  </div>
+
+  <!-- ===== OWASP TOP 10 ===== -->
+  <div class="card" id="lab3-owasp" data-nav="OWASP Top 10" style="padding:16px; margin-top:12px;">
+    <h3 style="margin:0 0 8px;">OWASP Top 10 (2021)</h3>
+    <p class="muted" style="margin:0 0 10px;">
+      OWASP Top 10 là danh sách 10 nhóm rủi ro bảo mật ứng dụng web phổ biến và nghiêm trọng nhất,
+      được cộng đồng OWASP tổng hợp theo dữ liệu thực tế.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Hạng mục</th>
+          <th>Rủi ro</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>A01</td><td>Broken Access Control</td></tr>
+        <tr><td>A02</td><td>Cryptographic Failures</td></tr>
+        <tr><td>A03</td><td>Injection</td></tr>
+        <tr><td>A04</td><td>Insecure Design</td></tr>
+        <tr><td>A05</td><td>Security Misconfiguration</td></tr>
+        <tr><td>A06</td><td>Vulnerable and Outdated Components</td></tr>
+        <tr><td>A07</td><td>Identification and Authentication Failures</td></tr>
+        <tr><td>A08</td><td>Software and Data Integrity Failures</td></tr>
+        <tr><td>A09</td><td>Security Logging and Monitoring Failures</td></tr>
+        <tr><td>A10</td><td>Server-Side Request Forgery (SSRF)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===== SO SÁNH 2017 vs 2021 ===== -->
+  <div class="card" id="lab3-compare" data-nav="So sánh OWASP 2017 vs 2021" style="padding:16px; margin-top:12px;">
+    <h3 style="margin:0 0 8px;">So sánh OWASP Top 10 (2017) và (2021)</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th>OWASP 2017</th>
+          <th>OWASP 2021</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A01 - Injection</td>
+          <td>A01 - Broken Access Control</td>
+        </tr>
+        <tr>
+          <td>A02 - Broken Authentication</td>
+          <td>A02 - Cryptographic Failures</td>
+        </tr>
+        <tr>
+          <td>A03 - Sensitive Data Exposure</td>
+          <td>A03 - Injection</td>
+        </tr>
+        <tr>
+          <td>A04 - XML External Entities</td>
+          <td>A04 - Insecure Design</td>
+        </tr>
+        <tr>
+          <td>A05 - Broken Access Control</td>
+          <td>A05 - Security Misconfiguration</td>
+        </tr>
+        <tr>
+          <td>A06 - Security Misconfiguration</td>
+          <td>A06 - Vulnerable and Outdated Components</td>
+        </tr>
+        <tr>
+          <td>A07 - Cross-Site Scripting</td>
+          <td>A07 - Identification and Authentication Failures</td>
+        </tr>
+        <tr>
+          <td>A08 - Insecure Deserialization</td>
+          <td>A08 - Software and Data Integrity Failures</td>
+        </tr>
+        <tr>
+          <td>A09 - Using Components with Known Vulnerabilities</td>
+          <td>A09 - Security Logging and Monitoring Failures</td>
+        </tr>
+        <tr>
+          <td>A10 - Insufficient Logging & Monitoring</td>
+          <td>A10 - Server-Side Request Forgery</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="muted" style="margin:12px 0 0;">
+      Nhìn chung, OWASP 2021 nhấn mạnh mạnh hơn vào <b>kiểm soát truy cập</b>, <b>mã hóa</b>, <b>thiết kế an toàn</b> và <b>khả năng giám sát</b>.
+    </p>
+  </div>
+
+  <!-- ===== PHÂN TÍCH TOP 3 ===== -->
+  <div class="card" id="lab3-top3" data-nav="Phân tích A01-A03" style="padding:16px; margin-top:12px;">
+    <h3 style="margin:0 0 8px;">Phân tích 3 nhóm rủi ro nổi bật (A01–A03)</h3>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">A01 — Broken Access Control</h4>
+      <p class="muted" style="margin:0 0 8px;">
+        Lỗi kiểm soát truy cập xảy ra khi hệ thống không áp đúng quyền hạn (role/permission), dẫn đến
+        người dùng có thể truy cập tài nguyên/hành động không được phép (IDOR, privilege escalation…).
+      </p>
+      <ul style="margin:0; padding-left:18px;">
+        <li><b>Ví dụ:</b> đổi ID trong URL để xem dữ liệu người khác (IDOR).</li>
+        <li><b>Tác hại:</b> lộ dữ liệu, sửa/xóa dữ liệu trái phép.</li>
+        <li><b>Khắc phục:</b> kiểm tra quyền ở backend mọi request; deny-by-default; test quyền theo role; logging/audit.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">A02 — Cryptographic Failures</h4>
+      <p class="muted" style="margin:0 0 8px;">
+        Xảy ra khi dữ liệu nhạy cảm không được mã hóa đúng cách (truyền plain HTTP, lưu password không hash/salt,
+        dùng thuật toán yếu, cấu hình TLS sai…).
+      </p>
+      <ul style="margin:0; padding-left:18px;">
+        <li><b>Ví dụ:</b> lưu mật khẩu dạng plain text; API không bật HTTPS.</li>
+        <li><b>Tác hại:</b> lộ thông tin cá nhân, chiếm tài khoản.</li>
+        <li><b>Khắc phục:</b> HTTPS bắt buộc; hash mật khẩu bằng bcrypt/argon2; quản lý key đúng chuẩn; HSTS.</li>
+      </ul>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">A03 — Injection</h4>
+      <p class="muted" style="margin:0 0 8px;">
+        Injection xảy ra khi dữ liệu đầu vào không được kiểm soát và bị đưa thẳng vào câu lệnh truy vấn/command
+        (SQLi, NoSQLi, OS command injection…).
+      </p>
+      <ul style="margin:0; padding-left:18px;">
+        <li><b>Ví dụ:</b> SQL Injection trong form login/search.</li>
+        <li><b>Tác hại:</b> đọc/sửa/xóa dữ liệu DB, chiếm quyền hệ thống.</li>
+        <li><b>Khắc phục:</b> prepared statements/ORM; validation; least privilege DB account; WAF.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== DEMO: JUICE SHOP ===== -->
+  <div class="card" id="lab3-juiceshop" data-nav="Môi trường demo: OWASP Juice Shop" style="padding:16px; margin-top:12px;">
+    <h3 style="margin:0 0 8px;">Môi trường demo</h3>
+    <p class="muted" style="margin:0 0 10px;">
+      Sử dụng OWASP Juice Shop để minh họa việc phát hiện và khai thác một số lỗ hổng phổ biến (SQLi, XSS…),
+      đồng thời nêu cách khắc phục.
+    </p>
+
+    <figure class="img">
+      <img src="img/lab3/image2.png" alt="OWASP Juice Shop">
+      <figcaption>Hình: Giao diện OWASP Juice Shop</figcaption>
+    </figure>
+
+    <figure class="img">
+      <img src="img/lab3/image6.png" alt="Score Board">
+      <figcaption>Hình: Score Board / Challenges của Juice Shop</figcaption>
+    </figure>
+  </div>
+
+  <!-- ===== DEMO SQLi ===== -->
+  <div class="card" id="lab3-sqli" data-nav="Demo: SQL Injection" style="padding:16px; margin-top:12px;">
+    <h3 style="margin:0 0 8px;">Demo 1 — SQL Injection</h3>
+    <p class="muted" style="margin:0 0 10px;">
+      SQL Injection có thể giúp bypass đăng nhập hoặc truy vấn trái phép nếu ứng dụng ghép chuỗi SQL trực tiếp từ input.
+    </p>
+
+    <figure class="img">
+      <img src="img/lab3/image1.png" alt="SQL Injection demo">
+      <figcaption>Hình: Ví dụ minh họa SQLi (bypass / thao tác đầu vào độc hại)</figcaption>
+    </figure>
+
+    <div class="divider"></div>
+
+    <h4 style="margin:0 0 6px;">Cách khắc phục</h4>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Dùng <b>Prepared Statements</b> / ORM, không nối chuỗi SQL.</li>
+      <li>Validate input theo whitelist (định dạng, độ dài).</li>
+      <li>Tài khoản DB dùng <b>least privilege</b> (giảm quyền).</li>
+      <li>Thêm WAF/Rate limit để giảm dò quét.</li>
+    </ul>
+  </div>
+
+  <!-- ===== DEMO XSS ===== -->
+  <div class="card" id="lab3-xss" data-nav="Demo: XSS" style="padding:16px; margin-top:12px;">
+    <h3 style="margin:0 0 8px;">Demo 2 — Cross-Site Scripting (XSS)</h3>
+    <p class="muted" style="margin:0 0 10px;">
+      XSS xảy ra khi ứng dụng đưa dữ liệu người dùng nhập vào HTML/DOM mà không encode/escape đúng cách,
+      cho phép chèn script chạy trong trình duyệt nạn nhân.
+    </p>
+
+    <figure class="img">
+      <img src="img/lab3/image3.png" alt="XSS payload">
+      <figcaption>Hình: Thử chèn payload XSS trong Juice Shop</figcaption>
+    </figure>
+
+    <figure class="img">
+      <img src="img/lab3/image4.png" alt="XSS result">
+      <figcaption>Hình: Kết quả payload XSS (script được render/chạy)</figcaption>
+    </figure>
+
+    <figure class="img">
+      <img src="img/lab3/image5.png" alt="Token / Local Storage">
+      <figcaption>Hình: Rủi ro XSS có thể truy cập dữ liệu client (ví dụ token lưu trên trình duyệt)</figcaption>
+    </figure>
+
+    <div class="divider"></div>
+
+    <h4 style="margin:0 0 6px;">Cách khắc phục</h4>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Output encoding/escape đúng ngữ cảnh (HTML, attribute, JS, URL).</li>
+      <li>Không render trực tiếp input vào DOM; dùng template engine an toàn.</li>
+      <li>Bật <b>Content-Security-Policy (CSP)</b> để giảm khả năng thực thi script lạ.</li>
+      <li>Không lưu token nhạy cảm trong localStorage nếu có thể; ưu tiên HttpOnly cookies.</li>
+    </ul>
+  </div>
+
+  <!-- ===== KẾT LUẬN ===== -->
   <div class="card" id="lab3-ketluan" data-nav="Kết luận" style="padding:16px; margin-top:12px;">
-
-    <h4 style="margin:0 0 6px;">1.4. Kết luận chung</h4>
-    <p class="muted" style="margin:0;">
-      Việc sử dụng HTTPS không chỉ giúp bảo mật dữ liệu mà còn là tiêu chuẩn bắt buộc
-      trong thiết kế và triển khai các hệ thống web hiện đại trên nền tảng điện toán đám mây.
-    </p>
+    <h3 style="margin:0 0 8px;">Kết luận Lab 3</h3>
+    <ul style="margin:0; padding-left:18px;">
+      <li>HTTPS và Security Headers là nền tảng bảo vệ lớp truyền và hành vi trình duyệt.</li>
+      <li>OWASP Top 10 giúp định hướng ưu tiên rủi ro khi thiết kế/vận hành web.</li>
+      <li>SQLi & XSS là lỗ hổng rất phổ biến: cần kiểm soát input + output, và thêm lớp bảo vệ như CSP/WAF.</li>
+    </ul>
   </div>
 </section>
+
 
 
             <!-- LAB 4: trống -->

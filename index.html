@@ -433,6 +433,37 @@
     @media (prefers-reduced-motion: reduce){
       *{ transition:none !important; animation:none !important; }
     }
+
+
+    /* ===== Sidebar submenu (mục lục từng lab) ===== */
+.subnav{
+  margin: -6px 0 10px;
+  padding-left: 10px;
+  display: none;
+  gap: 8px;
+}
+.subnav.show{ display: grid; }
+
+.subnav-item{
+  width: calc(100% - 10px);
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,.78);
+  color: var(--text);
+  padding: 10px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 13px;
+  line-height: 1.35;
+}
+.subnav-item:hover{
+  background: rgba(255,255,255,.95);
+  border-color: rgba(193,18,31,.28);
+}
+.subnav-item.active{
+  background: linear-gradient(135deg, rgba(193,18,31,.12), rgba(245,158,11,.14));
+  border-color: rgba(193,18,31,.35);
+}
   </style>
 </head>
 
@@ -480,24 +511,41 @@
           </div>
 
           <div class="nav" role="tablist" aria-label="Labs">
-            <button class="tab-btn active" role="tab" aria-selected="true" data-tab="lab1">
-              <span><b>Lab 1</b> <span class="meta">AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</span></span>
-              <span>→</span>
-            </button>
-            <button class="tab-btn" role="tab" aria-selected="false" data-tab="lab2">
-              <span><b>Lab 2</b> <span class="meta"> QUẢN LÝ TRUY CẬP, IAM & AN TOÀN MẠNG TRONG ĐIỆN
-TOÁN ĐÁM MÂY</span></span>
-              <span>→</span>
-            </button>
-            <button class="tab-btn" role="tab" aria-selected="false" data-tab="lab3">
-              <span><b>Lab 3</b> <span class="meta">CẤU HÌNH, PHÁT HIỆN & KHẮC PHỤC LỖI OWASP</span></span>
-              <span>→</span>
-            </button>
-            <button class="tab-btn" role="tab" aria-selected="false" data-tab="lab4">
-              <span><b>Lab 4</b> <span class="meta">GIÁM SÁT, NHẬT KÝ VÀ PHÁT HIỆN BẤT THƯỜNG</span></span>
-              <span>→</span>
-            </button>
-          </div>
+  <button class="tab-btn active" role="tab" aria-selected="true" data-tab="lab1" aria-expanded="false">
+    <span><b>Lab 1</b> <span class="meta">AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</span></span>
+    <span>→</span>
+  </button>
+  <div class="subnav" data-subnav="lab1"></div>
+
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="lab2" aria-expanded="false">
+    <span><b>Lab 2</b> <span class="meta">QUẢN LÝ TRUY CẬP, IAM & AN TOÀN MẠNG</span></span>
+    <span>→</span>
+  </button>
+  <div class="subnav" data-subnav="lab2"></div>
+
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="lab3" aria-expanded="false">
+    <span><b>Lab 3</b> <span class="meta">CẤU HÌNH, PHÁT HIỆN & KHẮC PHỤC LỖI OWASP</span></span>
+    <span>→</span>
+  </button>
+  <div class="subnav" data-subnav="lab3"></div>
+
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="lab4" aria-expanded="false">
+    <span><b>Lab 4</b> <span class="meta">GIÁM SÁT, NHẬT KÝ & PHÁT HIỆN BẤT THƯỜNG</span></span>
+    <span>→</span>
+  </button>
+  <div class="subnav" data-subnav="lab4"></div>
+
+  <button class="tab-btn" role="tab" aria-selected="false" data-tab="lab5" aria-expanded="false">
+  <span><b>Lab 5</b> <span class="meta">ỨNG PHÓ SỰ CỐ & TỔNG HỢP KẾT QUẢ
+AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</span></span>
+  <span>→</span>
+</button>
+<div class="subnav" data-subnav="lab5"></div>
+
+
+  
+</div>
+
         </aside>
 
         <!-- MAIN -->
@@ -1601,12 +1649,225 @@ TOÁN ĐÁM MÂY</h2>
 </section>
 
 
+
+<!-- ✅ LAB 5: FULL NỘI DUNG FILE WORD (YC1.docx) -->
+<section id="lab5" class="card card-pad tab-panel" role="tabpanel">
+  <h2 style="margin:0 0 6px;color:#7f1d1d;">Lab 5 — ỨNG PHÓ SỰ CỐ & TỔNG HỢP KẾT QUẢ
+AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</h2>
+  
+
+  <!-- 1 -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h3 class="section-title" style="margin:0 0 8px;">1. Incident Response là gì?</h3>
+    <p class="muted" style="margin:0;">
+      <b>Incident Response (Ứng phó sự cố)</b> là tập hợp các quy trình, hoạt động và biện pháp giúp tổ chức
+      <b>phát hiện</b>, <b>phân tích</b>, <b>phản ứng</b>, <b>xử lý</b> và <b>phục hồi</b> sau khi xảy ra sự cố an ninh mạng
+      nhằm giảm thiểu tác động và khôi phục hoạt động bình thường của hệ thống.
+      <br/><br/>
+      Nói đơn giản: nếu hệ thống bị truy cập trái phép hoặc bị tấn công, Incident Response là “kế hoạch ứng cứu”
+      giúp xử lý sự cố đó một cách có hệ thống và hiệu quả.
+    </p>
+
+    <div class="divider"></div>
+
+    <h4 style="margin:0 0 8px;">Mục tiêu của Incident Response</h4>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Giảm thiểu thiệt hại: tài sản, dữ liệu, hoạt động và uy tín.</li>
+      <li>Phục hồi hệ thống nhanh chóng và an toàn.</li>
+      <li>Ngăn sự tái diễn các sự cố tương tự trong tương lai.</li>
+      <li>Đáp ứng yêu cầu pháp lý và tuân thủ tiêu chuẩn bảo mật.</li>
+    </ul>
+  </div>
+
+  <!-- 2 -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h3 class="section-title" style="margin:0 0 8px;">2. Incident Response Lifecycle (NIST)</h3>
+    <p class="muted" style="margin:0 0 10px;">
+      Vòng đời Incident Response theo <b>NIST SP 800-61r3</b> là một framework tiêu chuẩn để xử lý sự cố an ninh mạng
+      một cách hệ thống, lặp lại và hiệu quả.
+    </p>
+
+    <h4 style="margin:0 0 8px;">Các giai đoạn chính</h4>
+    <table>
+      <thead>
+        <tr>
+          <th>Giai đoạn</th>
+          <th>Mô tả ngắn</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag">1. Preparation</span> (Chuẩn bị)</td>
+          <td>Xây dựng chính sách, đội IR, quy trình, công cụ trước khi xảy ra sự cố.</td>
+        </tr>
+        <tr>
+          <td><span class="tag">2. Detection &amp; Analysis</span> (Phát hiện &amp; phân tích)</td>
+          <td>Xác định dấu hiệu sự cố, đánh giá mức độ và nguồn gốc.</td>
+        </tr>
+        <tr>
+          <td><span class="tag">3. Containment, Eradication &amp; Recovery</span> (Cô lập, loại bỏ &amp; phục hồi)</td>
+          <td>Ngăn chặn lan rộng, loại bỏ nguyên nhân, khôi phục hệ thống.</td>
+        </tr>
+        <tr>
+          <td><span class="tag">4. Post-Incident Activity</span> (Rút kinh nghiệm)</td>
+          <td>Đánh giá sự cố, cập nhật kế hoạch và cải thiện bảo mật.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="muted" style="margin:12px 0 0;">
+      Đây là một chu trình <b>lặp lại</b>: sau mỗi sự cố, tổ chức rút kinh nghiệm để làm tốt hơn ở các lần sau.
+    </p>
+  </div>
+
+  <!-- 3 -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h3 class="section-title" style="margin:0 0 8px;">3. Khái niệm liên quan</h3>
+    <ul style="margin:0; padding-left:18px;">
+      <li>
+        <b>Sự cố an ninh (Security Incident):</b> bất kỳ sự kiện gây nguy cơ hoặc đã gây ảnh hưởng tới
+        <b>tính bảo mật</b>, <b>toàn vẹn</b> hoặc <b>sẵn sàng</b> của hệ thống.
+      </li>
+      <li>
+        <b>Incident Response:</b> tập hợp hoạt động nhằm phát hiện, phản ứng và phục hồi sau sự cố đó.
+      </li>
+    </ul>
+  </div>
+
+  <!-- 4 -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h3 class="section-title" style="margin:0 0 8px;">4. Vai trò của Incident Response trong môi trường Cloud</h3>
+    <p class="muted" style="margin:0 0 10px;">
+      Trong môi trường Cloud, hệ thống phân tán, có nhiều dịch vụ SaaS/PaaS/IaaS, và tài nguyên được chia sẻ giữa nhiều người dùng.
+      Điều này làm tăng bề mặt tấn công, khiến phát hiện và ứng phó sự cố trở nên phức tạp hơn.
+    </p>
+    <h4 style="margin:0 0 8px;">Incident Response trong cloud giúp</h4>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Phát hiện nhanh các hoạt động bất thường (ví dụ: truy cập lạ, tải cao bất thường).</li>
+      <li>Cô lập tài nguyên bị nhiễm (buckets, máy ảo, dịch vụ).</li>
+      <li>Phối hợp dữ liệu events từ nhiều nguồn (SIEM, logs cloud).</li>
+      <li>Giảm thiểu downtime trong hệ thống đa tenancy.</li>
+    </ul>
+    <p class="muted" style="margin:12px 0 0;">
+      Tóm lại: Incident Response là chìa khóa để bảo vệ dữ liệu và dịch vụ cloud toàn diện hơn so với môi trường on-premise.
+    </p>
+  </div>
+
+  <!-- 5 -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h3 class="section-title" style="margin:0 0 8px;">5. Dấu hiệu nào cho thấy đang có sự cố an toàn?</h3>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Tài khoản bị khóa đột ngột hoặc login thất bại liên tục.</li>
+      <li>Lưu lượng mạng tăng cao bất thường.</li>
+      <li>Thông báo từ hệ thống SIEM hoặc công cụ giám sát.</li>
+      <li>Logs ghi nhận hoạt động bất thường như truy cập từ IP lạ.</li>
+      <li>Hệ thống tự reboot hoặc crash không rõ lý do.</li>
+      <li>Dữ liệu bị thay đổi / bị rò rỉ ra ngoài.</li>
+    </ul>
+    <p class="muted" style="margin:12px 0 0;">
+      Những dấu hiệu này rất khó phát hiện nếu không có logging/monitoring. Không có dữ liệu → khó cảnh báo và phân tích.
+    </p>
+  </div>
+
+  <!-- 6 -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h3 class="section-title" style="margin:0 0 8px;">6. Phân loại sự cố và ví dụ</h3>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">Lộ tài khoản (Account compromise)</h4>
+      <p class="muted" style="margin:0;">
+        Kẻ tấn công chiếm quyền sử dụng tài khoản người dùng, truy cập trái phép hệ thống.
+        Ví dụ: sử dụng thông tin đăng nhập đánh cắp qua phishing để đăng nhập.
+      </p>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">Tấn công Brute-Force</h4>
+      <p class="muted" style="margin:0;">
+        Hệ thống bị thử nhiều mật khẩu liên tục cho tới khi thành công.
+        Brute-force thường để lại dấu hiệu: login thất bại nhiều lần từ cùng một IP.
+      </p>
+    </div>
+
+    <div class="card" style="padding:14px; margin-top:10px;">
+      <h4 style="margin:0 0 6px;">Khai thác lỗ hổng ứng dụng</h4>
+      <p class="muted" style="margin:0;">
+        Attacker lợi dụng lỗi (SQLi, XSS, RCE…) để truy cập hệ thống, đọc/ghi dữ liệu trái phép.
+        Nếu không có monitoring, rất khó phát hiện sớm.
+      </p>
+    </div>
+
+    <p class="muted" style="margin:12px 0 0;">
+      Các tình huống trên đều là sự cố an ninh và cần Incident Response để phân tích, cô lập và xử lý nguyên nhân.
+    </p>
+  </div>
+
+  <!-- 7 -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h3 class="section-title" style="margin:0 0 8px;">7. Nếu không có Monitoring và Logging, sự cố có được phát hiện không?</h3>
+    <p class="muted" style="margin:0 0 10px;">
+      <b>Không có monitoring/logging → khó phát hiện sự cố an ninh!</b>
+    </p>
+    <ul style="margin:0; padding-left:18px;">
+      <li>Không có dữ liệu lịch sử để phân tích hành vi.</li>
+      <li>Không có cảnh báo tự động khi hệ thống bị xâm nhập.</li>
+      <li>Điều tra sau này gần như không thể vì không có log để truy nguyên.</li>
+    </ul>
+    <p class="muted" style="margin:12px 0 0;">
+      Tóm lại: Không monitoring &amp; logging = blind spot lớn, tổ chức có thể không biết có sự cố cho tới khi hậu quả lớn xảy ra.
+      Vì vậy Incident Response hiệu quả luôn gắn với giám sát (monitoring) và ghi logs (logging).
+    </p>
+  </div>
+
+  <!-- 8 -->
+  <div class="card" style="padding:16px; margin-top:12px;">
+    <h3 class="section-title" style="margin:0 0 8px;">8. Chu trình Incident Response cơ bản</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Bước</th>
+          <th>Nội dung</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="tag">Preparation</span></td>
+          <td>Xây dựng chính sách, playbooks, đội ngũ và công cụ.</td>
+        </tr>
+        <tr>
+          <td><span class="tag">Detection</span></td>
+          <td>Phát hiện dấu hiệu bất thường qua logs, SIEM, cảnh báo.</td>
+        </tr>
+        <tr>
+          <td><span class="tag">Analysis</span></td>
+          <td>Xác định loại sự cố, phạm vi bị ảnh hưởng.</td>
+        </tr>
+        <tr>
+          <td><span class="tag">Response</span></td>
+          <td>Cô lập hệ thống, chặn IP, reset tài khoản bị xâm.</td>
+        </tr>
+        <tr>
+          <td><span class="tag">Eradication &amp; Recovery</span></td>
+          <td>Loại bỏ nguồn nguy hiểm, vá lỗi, khôi phục dữ liệu.</td>
+        </tr>
+        <tr>
+          <td><span class="tag">Post-Incident</span></td>
+          <td>Rút kinh nghiệm, cập nhật kế hoạch để lần sau làm tốt hơn.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+
+
             <footer>© 2026 — Website tĩnh báo cáo Cloud Computing • Nhóm thực hiện</footer>
           </div>
         </main>
       </div>
     </div>
   </div>
+  
 
   
 </body>

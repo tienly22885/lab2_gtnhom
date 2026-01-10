@@ -85,7 +85,7 @@ function buildSubmenu(tabId){
   }
 }
 
-["lab1","lab2","lab3","lab4"].forEach(buildSubmenu);
+["lab1","lab2","lab3","lab4","lab5"].forEach(buildSubmenu);
 
 /* Click Lab button */
 buttons.forEach(btn => {

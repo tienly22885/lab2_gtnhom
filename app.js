@@ -2,7 +2,20 @@
   const tabs = document.querySelectorAll(".tab-btn");
   const panels = document.querySelectorAll(".tab-panel");
 
-  function setActiveTab(tabId) {
+  let currentTab = "lab1";        // lab đang mở
+  let submenuOpen = true;         // trạng thái submenu
+
+  function setActiveTab(tabId, toggle = false) {
+    // Nếu click lại cùng tab → toggle submenu
+    if (toggle && tabId === currentTab) {
+      submenuOpen = !submenuOpen;
+    } else {
+      submenuOpen = true; // chuyển tab khác thì luôn mở submenu
+    }
+
+    currentTab = tabId;
+
+    // active tab
     tabs.forEach(btn => {
       const active = btn.dataset.tab === tabId;
       btn.classList.toggle("active", active);
@@ -10,11 +23,15 @@
       btn.setAttribute("aria-expanded", active ? "true" : "false");
     });
 
+    // panel
     panels.forEach(p => p.classList.toggle("active", p.id === tabId));
 
+    // submenu
     document.querySelectorAll(".subnav").forEach(s => s.classList.remove("show"));
-    const sub = document.querySelector(`.subnav[data-subnav="${tabId}"]`);
-    if (sub) sub.classList.add("show");
+    if (submenuOpen) {
+      const sub = document.querySelector(`.subnav[data-subnav="${tabId}"]`);
+      if (sub) sub.classList.add("show");
+    }
   }
 
   function buildSubnav(tabId) {
@@ -24,40 +41,38 @@
 
     sub.innerHTML = "";
 
-    // ✅ CHỈ lấy các mục bạn đánh dấu data-nav (không tự quét h2/h3 => không lòi tên thành viên)
     const anchors = panel.querySelectorAll("[data-nav][id]");
 
     anchors.forEach((el, idx) => {
-      const title = el.getAttribute("data-nav");
-      const id = el.id;
-
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = "subnav-item";
-      btn.textContent = `${idx + 1}. ${title}`;
+      btn.textContent = `${idx + 1}. ${el.dataset.nav}`;
 
       btn.addEventListener("click", (e) => {
         e.stopPropagation();
+
         setActiveTab(tabId);
 
         sub.querySelectorAll(".subnav-item").forEach(x => x.classList.remove("active"));
         btn.classList.add("active");
 
-        const target = document.getElementById(id);
-        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        document.getElementById(el.id)
+          ?.scrollIntoView({ behavior: "smooth", block: "start" });
       });
 
       sub.appendChild(btn);
     });
   }
 
-  // build submenu cho tất cả lab
-  const allLabs = ["lab1", "lab2", "lab3", "lab4", "lab5"];
-  allLabs.forEach(buildSubnav);
+  // build submenu
+  ["lab1", "lab2", "lab3", "lab4", "lab5"].forEach(buildSubnav);
 
-  // click tab
+  // tab click (toggle enabled)
   tabs.forEach(btn => {
-    btn.addEventListener("click", () => setActiveTab(btn.dataset.tab));
+    btn.addEventListener("click", () => {
+      setActiveTab(btn.dataset.tab, true);
+    });
   });
 
   // init

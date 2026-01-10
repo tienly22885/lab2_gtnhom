@@ -560,7 +560,7 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</span></span>
               <h2>Lab 1 — AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</h2>
               
 
-              <div class="block">
+              <div class="block" id="lab1-nhom" data-nav="Thông tin nhóm">
                 <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">1. Thông tin thành viên nhóm</h2>
                 <p class="muted" style="margin:0 0 10px;">Danh sách thành viên và thông tin liên hệ.</p>
 
@@ -583,7 +583,7 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</span></span>
                 </div>
               </div>
 
-              <div class="block">
+              <div class="block" id="lab1-cloud" data-nav="Cloud Computing là gì?">
                 <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">2. Cloud Computing là gì?</h2>
                 <p class="muted" style="margin:0;">
                   Cloud computing (điện toán đám mây) là mô hình cung cấp tài nguyên CNTT như máy chủ, lưu trữ, mạng, ứng dụng… thông qua Internet. Người dùng không cần tự xây dựng hạ tầng vật lý, mà sử dụng tài nguyên theo nhu cầu và trả phí theo mức sử dụng.
@@ -604,7 +604,7 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</span></span>
                 </ul>
               </div>
 
-              <div class="block">
+             <div class="block" id="lab1-model" data-nav="IaaS – PaaS – SaaS – FaaS">
                 <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">3. IaaS – PaaS – SaaS – FaaS</h2>
 
                 <figure class="img">
@@ -664,7 +664,7 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</span></span>
                 </table>
               </div>
 
-              <div class="block">
+              <div class="block" id="lab1-static" data-nav="Website tĩnh thuộc mô hình nào?">
                 <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">4. Website tĩnh thuộc mô hình nào?</h2>
 
                 <figure class="img">
@@ -680,7 +680,7 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</span></span>
                 </ul>
               </div>
 
-              <div class="block">
+              <div class="block" id="lab1-pages" data-nav="Cloudflare Pages">
                 <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">5. Cloudflare Pages</h2>
                 <ul style="margin:0; padding-left: 18px;">
                   <li>Kết nối Git (GitHub/GitLab)</li>
@@ -689,7 +689,8 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</span></span>
                 </ul>
               </div>
 
-              <div class="block">
+              <div class="block" id="lab1-cdn" data-nav="CDN: phân phối + vai trò">
+
                 <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">6–7. CDN: phân phối + vai trò</h2>
                 <p class="muted">
                   CDN (Content Delivery Network) phân phối nội dung bằng cách lưu bản sao (cache) nội dung website tại nhiều máy chủ biên (edge servers) trên toàn thế giới. Khi người dùng truy cập, CDN sẽ chọn máy chủ gần người dùng nhất để trả nội dung nhanh hơn so với server gốc.
@@ -717,7 +718,8 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</span></span>
                 </ul>
               </div>
 
-              <div class="block">
+              <div class="block" id="lab1-risk" data-nav="Rủi ro & giải pháp">
+
                 <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">8. Rủi ro & giải pháp</h2>
 
                 <h3 style="margin:0 0 8px;">Rủi ro</h3>
@@ -738,7 +740,8 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</span></span>
                 </ul>
               </div>
 
-              <div class="block">
+              <div class="block" id="lab1-img" data-nav="Hình minh họa">
+
                 <h2 style="margin:0 0 6px;font-size:18px;color:#7f1d1d;">9. Hình minh họa</h2>
                 <p class="muted" style="margin:0 0 10px;">Một số hình minh họa kiến trúc Cloud, CDN và workflow Pages.</p>
 
@@ -772,7 +775,7 @@ TOÁN ĐÁM MÂY</h2>
   </p> -->
 
   <!-- 1. Access Control -->
-  <section class="card" style="padding:16px; margin-top:12px;">
+  <section class="card" id="lab2-yc1" data-nav="Yêu cầu 1: Access Control & IAM" style="padding:16px; margin-top:12px;">
     <h3 class="section-title" style="margin:0 0 8px;">1. Yêu cầu 1</h3>
 
     <h4 style="margin:10px 0 6px;">1.1. Kiểm soát truy cập (Access Control) là gì?</h4>
@@ -806,7 +809,8 @@ TOÁN ĐÁM MÂY</h2>
   </section>
 
   <!-- 2. Authentication -->
-  <section class="card" style="padding:16px; margin-top:12px;">
+ <section class="card" id="lab2-authn" data-nav="Authentication (Xác thực)" style="padding:16px; margin-top:12px;">
+
     <h4 style="margin:0 0 6px;">1.2. Authentication (Xác thực) là gì?</h4>
     <p class="muted" style="margin:0 0 10px;">
       Authentication là quá trình xác minh danh tính của người dùng/thiết bị/hệ thống, nhằm trả lời câu hỏi:
@@ -822,7 +826,7 @@ TOÁN ĐÁM MÂY</h2>
   </section>
 
   <!-- 3. Authorization + models -->
-  <section class="card" style="padding:16px; margin-top:12px;">
+  <section class="card" id="lab2-authz" data-nav="Authorization & Mô hình phân quyền" style="padding:16px; margin-top:12px;">
     <h4 style="margin:0 0 6px;">1.3. Authorization (Phân quyền) là gì?</h4>
     <p class="muted" style="margin:0 0 10px;">
       Authorization là quá trình xác định người dùng/hệ thống có quyền truy cập tài nguyên cụ thể hay không
@@ -864,7 +868,8 @@ TOÁN ĐÁM MÂY</h2>
   </section>
 
   <!-- 4. IAM -->
-  <section class="card" style="padding:16px; margin-top:12px;">
+  <section class="card" id="lab2-iam" data-nav="Vai trò của IAM trong Cloud" style="padding:16px; margin-top:12px;">
+
     <h4 style="margin:0 0 6px;">1.4. Vai trò của IAM trong Cloud</h4>
     <p class="muted" style="margin:0 0 10px;">
       IAM (Identity and Access Management) dùng để quản lý danh tính và quyền truy cập:
@@ -889,7 +894,8 @@ TOÁN ĐÁM MÂY</h2>
   </section>
 
   <!-- 5. Zero Trust -->
-  <section class="card" style="padding:16px; margin-top:12px;">
+  <section class="card" id="lab2-zt" data-nav="Zero Trust" style="padding:16px; margin-top:12px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">2. Nguyên lý Zero Trust</h3>
 
     <h4 style="margin:10px 0 6px;">2.1. Bản chất Zero Trust</h4>
@@ -917,7 +923,8 @@ TOÁN ĐÁM MÂY</h2>
   </section>
 
   <!-- 6. Sơ đồ khối (placeholder) -->
-  <section class="card" style="padding:16px; margin-top:14px;">
+  <section class="card" id="lab2-sodokhoi" data-nav="Yêu cầu 2: Sơ đồ khối" style="padding:16px; margin-top:14px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">3. Yêu cầu 2 — Sơ đồ khối</h3>
     <div class="placeholder">
       <figure class="img">
@@ -930,7 +937,8 @@ TOÁN ĐÁM MÂY</h2>
   </section>
 
   <!-- 7. Yêu cầu 3 -->
-  <section class="card" style="padding:16px; margin-top:14px;">
+  <section class="card" id="lab2-yc3" data-nav="Yêu cầu 3: Phân tích rủi ro" style="padding:16px; margin-top:14px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">4. Yêu cầu 3 — Phân tích rủi ro truy cập theo từng trường hợp</h3>
 
     <div class="card" style="padding:14px; margin-top:10px;">
@@ -978,7 +986,8 @@ TOÁN ĐÁM MÂY</h2>
   </p>
 
   <!-- Block 1 -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab3-yc1" data-nav="Yêu cầu 1: HTTPS là gì?" style="padding:16px; margin-top:12px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">Yêu cầu 1</h3>
 
     <h4 style="margin:10px 0 6px;">1.1. HTTPS là gì?</h4>
@@ -990,7 +999,8 @@ TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- Block 2 -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab3-http-https" data-nav="Khác nhau HTTP và HTTPS" style="padding:16px; margin-top:12px;">
+
     <h4 style="margin:0 0 6px;">Sự khác nhau giữa HTTP và HTTPS</h4>
     <p class="muted" style="margin:0;">
       HTTP truyền dữ liệu ở dạng văn bản thuần (plain text), do đó dễ bị nghe lén hoặc đánh cắp
@@ -1000,7 +1010,8 @@ TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- Block 3 -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab3-3yeuto" data-nav="3 yếu tố bảo mật của HTTPS" style="padding:16px; margin-top:12px;">
+
     <h4 style="margin:0 0 8px;">HTTPS đảm bảo 3 yếu tố bảo mật quan trọng</h4>
     <ul style="margin:0; padding-left:18px;">
       <li><b>Confidentiality (Tính bảo mật):</b> Dữ liệu được mã hóa, kẻ tấn công không thể đọc được.</li>
@@ -1017,7 +1028,8 @@ TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- Block 4 -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab3-ruiro" data-nav="Rủi ro khi không dùng HTTPS" style="padding:16px; margin-top:12px;">
+
     <h4 style="margin:0 0 8px;">1.2. Các rủi ro khi không sử dụng HTTPS</h4>
     <ul style="margin:0; padding-left:18px;">
       <li>Dễ bị đánh cắp thông tin đăng nhập</li>
@@ -1028,7 +1040,8 @@ TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- Block 5 -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab3-cloud" data-nav="Vai trò HTTPS trong Cloud" style="padding:16px; margin-top:12px;">
+
     <h4 style="margin:0 0 6px;">1.3. Vai trò của HTTPS trong bảo mật Cloud</h4>
     <p class="muted" style="margin:0;">
       Trong môi trường Cloud Computing, HTTPS giúp đảm bảo dữ liệu được truyền an toàn
@@ -1038,7 +1051,8 @@ TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- Block 6 -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab3-ketluan" data-nav="Kết luận" style="padding:16px; margin-top:12px;">
+
     <h4 style="margin:0 0 6px;">1.4. Kết luận chung</h4>
     <p class="muted" style="margin:0;">
       Việc sử dụng HTTPS không chỉ giúp bảo mật dữ liệu mà còn là tiêu chuẩn bắt buộc
@@ -1058,7 +1072,8 @@ TOÁN ĐÁM MÂY</h2>
   </p> -->
 
   <!-- ===== YÊU CẦU 1 ===== -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab4-yc1" data-nav="Yêu cầu 1: Monitoring/Logging/Visibility" style="padding:16px; margin-top:12px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">1. Yêu cầu 1</h3>
 
     <h4 style="margin:10px 0 6px;">1.1. Monitoring</h4>
@@ -1091,7 +1106,8 @@ TOÁN ĐÁM MÂY</h2>
     </p>
   </div>
 
-  <div class="card" style="padding:16px; margin-top:12px;">
+ <div class="card" id="lab4-logging" data-nav="Logging" style="padding:16px; margin-top:12px;">
+
     <h4 style="margin:0 0 6px;">1.2. Logging</h4>
     <p class="muted" style="margin:0;">
       Logging là quá trình ghi lại mọi sự kiện, hành vi, hoặc lỗi xảy ra trong hệ thống hoặc ứng dụng, để lưu trữ và sử dụng cho phân tích sau này.
@@ -1121,7 +1137,8 @@ TOÁN ĐÁM MÂY</h2>
     </p>
   </div>
 
-  <div class="card" style="padding:16px; margin-top:12px;">
+ <div class="card" id="lab4-visibility" data-nav="Security Visibility" style="padding:16px; margin-top:12px;">
+
     <h4 style="margin:0 0 6px;">1.3. Security Visibility</h4>
     <p class="muted" style="margin:0;">
       Security Visibility là khả năng nhìn thấy đầy đủ các hoạt động bảo mật và mối đe dọa trong môi trường cloud,
@@ -1148,7 +1165,8 @@ TOÁN ĐÁM MÂY</h2>
     </p>
   </div>
 
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab4-role" data-nav="Vai trò Monitoring & Logging trong Cloud" style="padding:16px; margin-top:12px;">
+
     <h4 style="margin:0 0 6px;">1.4. Vai trò của Monitoring và Logging trong môi trường Cloud</h4>
 
     <p class="muted" style="margin:0 0 6px;"><b>Monitoring</b></p>
@@ -1170,7 +1188,8 @@ TOÁN ĐÁM MÂY</h2>
     </p>
   </div>
 
-  <div class="card" style="padding:16px; margin-top:12px;">
+ <div class="card" id="lab4-compare" data-nav="So sánh Monitoring và Logging" style="padding:16px; margin-top:12px;">
+
     <h4 style="margin:0 0 10px;">1.5. Sự khác nhau giữa Monitoring và Logging</h4>
 
     <div class="table-wrap">
@@ -1214,7 +1233,8 @@ TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- ===== YÊU CẦU 2 ===== -->
-  <div class="card" style="padding:16px; margin-top:14px;">
+  <div class="card" id="lab4-yc2" data-nav="Yêu cầu 2: Đối tượng cần giám sát" style="padding:16px; margin-top:14px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">2. Yêu cầu 2: Xác định đối tượng cần giám sát</h3>
     <p class="muted" style="margin:0 0 10px;">Giả sử nhóm đang vận hành một website hoặc ứng dụng web triển khai trên cloud.</p>
 
@@ -1338,7 +1358,8 @@ TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- ===== YÊU CẦU 3 ===== -->
-  <div class="card" style="padding:16px; margin-top:14px;">
+  <div class="card" id="lab4-yc3" data-nav="Yêu cầu 3: Phân tích hành vi bất thường" style="padding:16px; margin-top:14px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">3. Yêu cầu 3: Phân tích hành vi bất thường</h3>
 
     <div class="card" style="padding:14px; margin-top:10px;">
@@ -1463,7 +1484,8 @@ TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- ===== YÊU CẦU 4 ===== -->
-  <div class="card" style="padding:16px; margin-top:14px;">
+  <div class="card" id="lab4-yc4" data-nav="Yêu cầu 4: Vai trò Log trong điều tra sự cố" style="padding:16px; margin-top:14px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">4. Yêu cầu 4: Phân tích vai trò của log trong điều tra sự cố - Liên hệ triển khai trên môi trường điện toán đám mây</h3>
 
     <div class="card" style="padding:14px; margin-top:10px;">
@@ -1657,7 +1679,8 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</h2>
   
 
   <!-- 1 -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab5-ir" data-nav="Incident Response là gì?" style="padding:16px; margin-top:12px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">1. Incident Response là gì?</h3>
     <p class="muted" style="margin:0;">
       <b>Incident Response (Ứng phó sự cố)</b> là tập hợp các quy trình, hoạt động và biện pháp giúp tổ chức
@@ -1680,7 +1703,8 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- 2 -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab5-nist" data-nav="Incident Response Lifecycle (NIST)" style="padding:16px; margin-top:12px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">2. Incident Response Lifecycle (NIST)</h3>
     <p class="muted" style="margin:0 0 10px;">
       Vòng đời Incident Response theo <b>NIST SP 800-61r3</b> là một framework tiêu chuẩn để xử lý sự cố an ninh mạng
@@ -1721,7 +1745,8 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- 3 -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab5-khainiem" data-nav="Khái niệm liên quan" style="padding:16px; margin-top:12px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">3. Khái niệm liên quan</h3>
     <ul style="margin:0; padding-left:18px;">
       <li>
@@ -1735,7 +1760,8 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- 4 -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab5-cloud" data-nav="Vai trò IR trong Cloud" style="padding:16px; margin-top:12px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">4. Vai trò của Incident Response trong môi trường Cloud</h3>
     <p class="muted" style="margin:0 0 10px;">
       Trong môi trường Cloud, hệ thống phân tán, có nhiều dịch vụ SaaS/PaaS/IaaS, và tài nguyên được chia sẻ giữa nhiều người dùng.
@@ -1754,7 +1780,8 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- 5 -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab5-dauhieu" data-nav="Dấu hiệu có sự cố an toàn" style="padding:16px; margin-top:12px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">5. Dấu hiệu nào cho thấy đang có sự cố an toàn?</h3>
     <ul style="margin:0; padding-left:18px;">
       <li>Tài khoản bị khóa đột ngột hoặc login thất bại liên tục.</li>
@@ -1770,7 +1797,8 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- 6 -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab5-phanloai" data-nav="Phân loại sự cố & ví dụ" style="padding:16px; margin-top:12px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">6. Phân loại sự cố và ví dụ</h3>
 
     <div class="card" style="padding:14px; margin-top:10px;">
@@ -1803,7 +1831,8 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- 7 -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab5-nomonlog" data-nav="Không có Monitoring/Logging thì sao?" style="padding:16px; margin-top:12px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">7. Nếu không có Monitoring và Logging, sự cố có được phát hiện không?</h3>
     <p class="muted" style="margin:0 0 10px;">
       <b>Không có monitoring/logging → khó phát hiện sự cố an ninh!</b>
@@ -1820,7 +1849,8 @@ AN TOÀN ĐIỆN TOÁN ĐÁM MÂY</h2>
   </div>
 
   <!-- 8 -->
-  <div class="card" style="padding:16px; margin-top:12px;">
+  <div class="card" id="lab5-quytrinh" data-nav="Chu trình Incident Response cơ bản" style="padding:16px; margin-top:12px;">
+
     <h3 class="section-title" style="margin:0 0 8px;">8. Chu trình Incident Response cơ bản</h3>
     <table>
       <thead>
